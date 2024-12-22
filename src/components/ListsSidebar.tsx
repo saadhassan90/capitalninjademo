@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ListCard } from "@/components/lists/ListCard";
 import { ListContextMenu } from "@/components/lists/ListContextMenu";
 import { ListsHeader } from "@/components/lists/ListsHeader";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { mockLists } from "@/data/mockInvestors";
 
 interface List {
   id: string;
@@ -14,57 +14,14 @@ interface List {
 }
 
 export const ListsSidebar = () => {
-  const [lists, setLists] = useState<List[]>([]);
+  const [lists, setLists] = useState<List[]>(mockLists);
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchLists = async () => {
-      const { data, error } = await supabase
-        .from("lists")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        console.error("Error fetching lists:", error);
-        return;
-      }
-
-      setLists(data || []);
-    };
-
-    fetchLists();
-
-    // Subscribe to changes
-    const channel = supabase
-      .channel('lists_changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'lists'
-        },
-        () => {
-          fetchLists();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      channel.unsubscribe();
-    };
-  }, []);
-
   const handleDelete = async (id: string) => {
     try {
-      const { error } = await supabase
-        .from("lists")
-        .delete()
-        .eq("id", id);
-
-      if (error) throw error;
-
+      setLists(prev => prev.filter(list => list.id !== id));
+      
       toast({
         title: "Success",
         description: "List deleted successfully",
@@ -84,14 +41,13 @@ export const ListsSidebar = () => {
       const listToDuplicate = lists.find(list => list.id === id);
       if (!listToDuplicate) return;
 
-      const { error } = await supabase
-        .from("lists")
-        .insert([{
-          name: `${listToDuplicate.name} (Copy)`,
-          description: listToDuplicate.description
-        }]);
+      const newList = {
+        ...listToDuplicate,
+        id: String(Date.now()),
+        name: `${listToDuplicate.name} (Copy)`,
+      };
 
-      if (error) throw error;
+      setLists(prev => [...prev, newList]);
 
       toast({
         title: "Success",
