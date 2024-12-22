@@ -14,13 +14,17 @@ export function SidebarHeader({ isCollapsed, onToggleCollapse }: SidebarHeaderPr
       <div className="flex items-center justify-between px-4 py-3">
         <div className={cn("flex flex-col items-start gap-2", isCollapsed && "items-center")}>
           <div className={cn("flex items-center gap-2", isCollapsed && "justify-center")}>
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary">
-              <span className="text-lg font-bold text-primary-foreground">CN</span>
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-black">
+              <img 
+                src="/lovable-uploads/db4adf48-8ae3-40a8-ada4-593eadc5e6ba.png" 
+                alt="CapitalNinja Logo" 
+                className="w-6 h-6"
+              />
             </div>
             {!isCollapsed && (
               <div className="flex flex-col">
                 <span className="text-lg font-semibold">CapitalNinja</span>
-                <span className="text-xs text-muted-foreground">Investment Platform</span>
+                <span className="text-xs text-muted-foreground">Investor Database</span>
               </div>
             )}
           </div>
