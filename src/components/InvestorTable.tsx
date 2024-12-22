@@ -41,10 +41,14 @@ const investors = [
   },
 ];
 
-export const InvestorTable = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+interface InvestorTableProps {
+  searchQuery?: string;
+}
+
+export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
   const [selectedInvestors, setSelectedInvestors] = useState<number[]>([]);
   const [nlpKeywords, setNlpKeywords] = useState<string[]>([]);
+  const [localSearchQuery, setLocalSearchQuery] = useState("");
 
   const handleSelectAll = () => {
     if (selectedInvestors.length === filteredInvestors.length) {
@@ -68,7 +72,7 @@ export const InvestorTable = () => {
 
   const filteredInvestors = investors.filter((investor) => {
     const matchesSearch = Object.values(investor).some((value) =>
-      value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+      value.toString().toLowerCase().includes((searchQuery || localSearchQuery).toLowerCase())
     );
 
     const matchesNlp = nlpKeywords.length === 0 || nlpKeywords.some(keyword =>
@@ -88,8 +92,8 @@ export const InvestorTable = () => {
         <div className="flex-1">
           <Input
             placeholder="Search investors..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={localSearchQuery}
+            onChange={(e) => setLocalSearchQuery(e.target.value)}
             className="w-full"
           />
         </div>
