@@ -13,7 +13,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { NaturalLanguageSearch } from "@/components/NaturalLanguageSearch";
 import { Filter, Plus, Trash } from "lucide-react";
 
-// Mock data - in a real app this would come from your Supabase backend
 const investors = [
   {
     id: 1,
@@ -100,10 +99,6 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
         <Button variant="outline">
           <Filter className="h-4 w-4 mr-2" />
           Filters
-        </Button>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Investor
         </Button>
       </div>
 
