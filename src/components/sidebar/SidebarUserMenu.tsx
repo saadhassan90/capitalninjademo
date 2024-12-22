@@ -1,5 +1,4 @@
 import { User, Settings, Users2, CreditCard, LogOut, ChevronDown } from "lucide-react";
-import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -85,17 +84,16 @@ export function SidebarUserMenu({
         style={{ "--sidebar-width": isCollapsed ? "12rem" : "16rem" } as React.CSSProperties}
       >
         {userMenuItems.map((item) => (
-          <DropdownMenuItem key={item.title} asChild>
-            <Link
-              to={item.path}
+          <DropdownMenuItem key={item.title}>
+            <div
               className={cn(
-                "flex items-center gap-2 px-2 py-2 cursor-pointer",
+                "flex items-center gap-2 px-2 py-2 w-full",
                 currentPath === item.path && "bg-accent"
               )}
             >
               <item.icon className="h-4 w-4" />
               <span>{item.title}</span>
-            </Link>
+            </div>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
