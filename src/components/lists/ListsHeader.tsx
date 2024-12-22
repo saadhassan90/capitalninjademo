@@ -6,7 +6,7 @@ interface ListsHeaderProps {
 
 export const ListsHeader = ({ onNewList }: ListsHeaderProps) => {
   return (
-    <div className="flex items-center justify-between mb-6">
+    <div className="flex items-center justify-end mb-6">
       <CreateListDialog onNewList={onNewList} />
     </div>
   );
