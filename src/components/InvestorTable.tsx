@@ -109,7 +109,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col space-y-6">
       <div className="w-full">
         <NaturalLanguageSearch onSearchResults={handleSearch} />
       </div>
@@ -121,47 +121,49 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
         />
       </div>
 
-      <div className="w-full overflow-x-auto rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[50px]">
-                <Checkbox
-                  checked={selectedInvestors.length === filteredInvestors.length && filteredInvestors.length > 0}
-                  onCheckedChange={handleSelectAll}
-                />
-              </TableHead>
-              <TableHead className="min-w-[200px]">Name</TableHead>
-              <TableHead className="min-w-[150px]">Type</TableHead>
-              <TableHead className="min-w-[150px]">Location</TableHead>
-              <TableHead className="min-w-[100px]">AUM (M)</TableHead>
-              <TableHead className="min-w-[150px]">Contact Name</TableHead>
-              <TableHead className="min-w-[200px]">Contact Email</TableHead>
-              <TableHead className="w-[200px]">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredInvestors.map((investor) => (
-              <TableRow key={investor.id}>
-                <TableCell>
+      <div className="relative w-full">
+        <div className="overflow-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="sticky left-0 bg-background w-[50px]">
                   <Checkbox
-                    checked={selectedInvestors.includes(investor.id)}
-                    onCheckedChange={() => handleSelectInvestor(investor.id)}
+                    checked={selectedInvestors.length === filteredInvestors.length && filteredInvestors.length > 0}
+                    onCheckedChange={handleSelectAll}
                   />
-                </TableCell>
-                <TableCell className="font-medium">{investor.name}</TableCell>
-                <TableCell>{investor.investor_type}</TableCell>
-                <TableCell>{investor.headquarters_location}</TableCell>
-                <TableCell>{investor.aum_millions ? `$${investor.aum_millions}M` : '-'}</TableCell>
-                <TableCell>{investor.primary_contact_name}</TableCell>
-                <TableCell>{investor.primary_contact_email}</TableCell>
-                <TableCell>
-                  <InvestorRowActions investor={investor} />
-                </TableCell>
+                </TableHead>
+                <TableHead className="min-w-[200px]">Name</TableHead>
+                <TableHead className="min-w-[150px]">Type</TableHead>
+                <TableHead className="min-w-[150px]">Location</TableHead>
+                <TableHead className="min-w-[100px]">AUM (M)</TableHead>
+                <TableHead className="min-w-[150px]">Contact Name</TableHead>
+                <TableHead className="min-w-[200px]">Contact Email</TableHead>
+                <TableHead className="sticky right-0 bg-background w-[200px]">Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {filteredInvestors.map((investor) => (
+                <TableRow key={investor.id}>
+                  <TableCell className="sticky left-0 bg-background">
+                    <Checkbox
+                      checked={selectedInvestors.includes(investor.id)}
+                      onCheckedChange={() => handleSelectInvestor(investor.id)}
+                    />
+                  </TableCell>
+                  <TableCell className="font-medium">{investor.name}</TableCell>
+                  <TableCell>{investor.investor_type}</TableCell>
+                  <TableCell>{investor.headquarters_location}</TableCell>
+                  <TableCell>{investor.aum_millions ? `$${investor.aum_millions}M` : '-'}</TableCell>
+                  <TableCell>{investor.primary_contact_name}</TableCell>
+                  <TableCell>{investor.primary_contact_email}</TableCell>
+                  <TableCell className="sticky right-0 bg-background">
+                    <InvestorRowActions investor={investor} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   );
