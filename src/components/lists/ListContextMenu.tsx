@@ -8,10 +8,10 @@ import { Copy, FolderOpen, Trash2 } from "lucide-react";
 
 interface ListContextMenuProps {
   children: React.ReactNode;
-  id: number;
-  onOpen: (id: number) => void;
-  onDuplicate: (id: number) => void;
-  onDelete: (id: number) => void;
+  id: string;  // Changed from number to string
+  onOpen: (id: string) => void;  // Changed from number to string
+  onDuplicate: (id: string) => void;  // Changed from number to string
+  onDelete: (id: string) => void;  // Changed from number to string
 }
 
 export const ListContextMenu = ({ 
