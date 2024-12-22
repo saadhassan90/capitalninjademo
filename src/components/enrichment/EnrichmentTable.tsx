@@ -10,9 +10,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
 
-type EnrichmentStatus = "pending" | "in_progress" | "completed";
+type EnrichmentStatus = "Completed" | "In Progress" | "Pending";
 
 interface EnrichmentFile {
   id: string;
@@ -27,34 +26,36 @@ const mockFiles: EnrichmentFile[] = [
   {
     id: "1",
     filename: "investors-batch-1.csv",
-    status: "completed",
+    status: "Completed",
     uploadedAt: "2024-03-22T10:00:00Z",
     rowCount: 150,
   },
   {
     id: "2",
     filename: "new-leads-march.csv",
-    status: "in_progress",
+    status: "In Progress",
     uploadedAt: "2024-03-22T11:30:00Z",
     rowCount: 75,
   },
   {
     id: "3",
     filename: "potential-investors.csv",
-    status: "pending",
+    status: "Pending",
     uploadedAt: "2024-03-22T12:00:00Z",
     rowCount: 200,
   },
 ];
 
-const getStatusBadgeVariant = (status: EnrichmentStatus) => {
+const getStatusStyles = (status: EnrichmentStatus) => {
   switch (status) {
-    case "completed":
-      return "default";
-    case "in_progress":
-      return "secondary";
-    case "pending":
-      return "outline";
+    case "Completed":
+      return "bg-green-50 text-green-700 ring-green-600/20";
+    case "In Progress":
+      return "bg-gray-100 text-gray-700 ring-gray-600/20";
+    case "Pending":
+      return "bg-white text-gray-700 ring-gray-600/20";
+    default:
+      return "bg-gray-100 text-gray-700 ring-gray-600/20";
   }
 };
 
@@ -133,8 +134,8 @@ export const EnrichmentTable = () => {
                 </TableCell>
                 <TableCell className="font-medium">{file.filename}</TableCell>
                 <TableCell>
-                  <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-50 text-green-700 ring-green-600/20">
-                    {file.status.replace('_', ' ')}
+                  <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${getStatusStyles(file.status)}`}>
+                    {file.status}
                   </span>
                 </TableCell>
                 <TableCell>{new Date(file.uploadedAt).toLocaleDateString()}</TableCell>
@@ -144,7 +145,7 @@ export const EnrichmentTable = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => handleDownload(file.id)}
-                    disabled={file.status !== "completed"}
+                    disabled={file.status !== "Completed"}
                     className="flex items-center gap-2"
                   >
                     <Download className="h-4 w-4" />
