@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,15 +26,18 @@ import { Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 
-interface FormValues {
-  name: string;
-  description: string;
-}
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export const CreateListDialog = () => {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -41,12 +46,22 @@ export const CreateListDialog = () => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      const { error } = await supabase
+      console.log("Creating list with data:", data);
+      const { data: newList, error } = await supabase
         .from("lists")
-        .insert([{ name: data.name, description: data.description }]);
+        .insert([{ 
+          name: data.name, 
+          description: data.description || null 
+        }])
+        .select()
+        .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error creating list:", error);
+        throw error;
+      }
 
+      console.log("List created successfully:", newList);
       toast({
         title: "Success",
         description: "List created successfully",
@@ -58,7 +73,7 @@ export const CreateListDialog = () => {
       console.error("Error creating list:", error);
       toast({
         title: "Error",
-        description: "Failed to create list",
+        description: "Failed to create list. Please try again.",
         variant: "destructive",
       });
     }
