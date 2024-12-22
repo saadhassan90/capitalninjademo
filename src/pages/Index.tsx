@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { InvestorTable } from "@/components/InvestorTable";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useState } from "react";
 
@@ -19,7 +17,6 @@ const Index = () => {
                 <h1 className="text-4xl font-bold mb-2">Investor Database</h1>
                 <p className="text-muted-foreground">Search, organize, and export investor data</p>
               </div>
-              <SidebarTrigger />
             </div>
 
             <InvestorTable searchQuery={searchQuery} />
@@ -28,6 +25,6 @@ const Index = () => {
       </div>
     </SidebarProvider>
   );
-};
+}
 
 export default Index;

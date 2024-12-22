@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, List, FileText, ChevronDown, User, Settings, Users2, CreditCard, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, List, FileText, ChevronDown, User, Settings, Users2, CreditCard, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { Button } from "./ui/button";
 
 const menuItems = [
   {
@@ -74,33 +75,48 @@ const userMenuItems = [
 
 export function AppSidebar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
 
   return (
-    <Sidebar>
+    <Sidebar className={cn(isCollapsed && "w-[4rem] transition-all duration-200")}>
       <SidebarHeader className="border-b border-sidebar-border">
-        <div className="flex items-center gap-2 px-4 py-3">
+        <div className={cn("flex items-center gap-2 px-4 py-3", isCollapsed && "justify-center px-2")}>
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary">
             <span className="text-lg font-bold text-primary-foreground">CN</span>
           </div>
-          <div className="flex flex-col">
-            <span className="text-lg font-semibold">CapitalNinja</span>
-            <span className="text-xs text-muted-foreground">Investment Platform</span>
-          </div>
+          {!isCollapsed && (
+            <div className="flex flex-col">
+              <span className="text-lg font-semibold">CapitalNinja</span>
+              <span className="text-xs text-muted-foreground">Investment Platform</span>
+            </div>
+          )}
         </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-2 top-3"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+        >
+          {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        </Button>
       </SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupLabel className={cn(isCollapsed && "hidden")}>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={location.pathname === item.path}>
-                    <Link to={item.path}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location.pathname === item.path}
+                    tooltip={isCollapsed ? item.title : undefined}
+                  >
+                    <Link to={item.path} className="flex items-center gap-2">
                       <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
+                      {!isCollapsed && <span>{item.title}</span>}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -113,24 +129,31 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-sidebar-border">
         <DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center w-full gap-2 p-4 hover:bg-sidebar-accent transition-colors">
+            <button className={cn(
+              "flex items-center w-full gap-2 p-4 hover:bg-sidebar-accent transition-colors",
+              isCollapsed && "justify-center p-2"
+            )}>
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground">
                 JD
               </div>
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium">John Doe</p>
-                <p className="text-xs text-muted-foreground">john@example.com</p>
-              </div>
-              <ChevronDown className={cn(
-                "h-4 w-4 text-muted-foreground transition-transform duration-200",
-                isUserMenuOpen && "rotate-180"
-              )} />
+              {!isCollapsed && (
+                <>
+                  <div className="flex-1 text-left">
+                    <p className="text-sm font-medium">John Doe</p>
+                    <p className="text-xs text-muted-foreground">john@example.com</p>
+                  </div>
+                  <ChevronDown className={cn(
+                    "h-4 w-4 text-muted-foreground transition-transform duration-200",
+                    isUserMenuOpen && "rotate-180"
+                  )} />
+                </>
+              )}
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="start"
             className="w-[--sidebar-width] rounded-none mt-2 p-2"
-            style={{ "--sidebar-width": "16rem" } as React.CSSProperties}
+            style={{ "--sidebar-width": isCollapsed ? "12rem" : "16rem" } as React.CSSProperties}
           >
             {userMenuItems.map((item) => (
               <DropdownMenuItem key={item.title} asChild>

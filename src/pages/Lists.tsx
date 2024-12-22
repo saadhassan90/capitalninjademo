@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { ListsSidebar } from "@/components/ListsSidebar";
 
@@ -14,7 +14,6 @@ const Lists = () => {
                 <h1 className="text-4xl font-bold mb-2">My Lists</h1>
                 <p className="text-muted-foreground">Organize and manage your investor lists</p>
               </div>
-              <SidebarTrigger />
             </div>
 
             <div className="flex gap-6">
