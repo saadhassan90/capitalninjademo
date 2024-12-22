@@ -134,7 +134,7 @@ export const EnrichmentTable = () => {
                 </TableCell>
                 <TableCell className="font-medium">{file.filename}</TableCell>
                 <TableCell>
-                  <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${getStatusStyles(file.status)}`}>
+                  <span className={`inline-flex items-center rounded-full px-4 py-1 text-xs font-medium ring-1 ring-inset ${getStatusStyles(file.status)}`}>
                     {file.status}
                   </span>
                 </TableCell>
