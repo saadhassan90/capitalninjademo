@@ -56,6 +56,14 @@ interface InvestorProfileDrawerProps {
     investment_policy_description?: string | null;
     global_region?: string | null;
     global_subregion?: string | null;
+    target_alternatives_min_pct?: number | null;
+    target_alternatives_max_pct?: number | null;
+    target_private_equity_min_pct?: number | null;
+    target_private_equity_max_pct?: number | null;
+    target_real_estate_min_pct?: number | null;
+    target_real_estate_max_pct?: number | null;
+    target_special_opps_min_pct?: number | null;
+    target_special_opps_max_pct?: number | null;
   };
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -64,16 +72,16 @@ interface InvestorProfileDrawerProps {
 export const InvestorProfileDrawer = ({ investor, open, onOpenChange }: InvestorProfileDrawerProps) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-[25vw] overflow-y-auto">
-        <SheetHeader className="mb-6">
-          <SheetTitle className="text-2xl">{investor.name}</SheetTitle>
+      <SheetContent className="w-[35vw] overflow-y-auto bg-background p-0">
+        <SheetHeader className="p-6 border-b">
+          <SheetTitle className="text-2xl font-semibold">{investor.name}</SheetTitle>
           {investor.investor_type && (
-            <span className="text-muted-foreground">{investor.investor_type}</span>
+            <span className="text-muted-foreground text-sm">{investor.investor_type}</span>
           )}
         </SheetHeader>
 
-        <ScrollArea className="h-[calc(100vh-100px)] pr-4">
-          <div className="space-y-8">
+        <ScrollArea className="h-[calc(100vh-100px)] px-6">
+          <div className="space-y-8 py-6">
             <BasicInformation investor={investor} />
             <ContactInformation investor={investor} />
             <LocationInformation investor={investor} />
