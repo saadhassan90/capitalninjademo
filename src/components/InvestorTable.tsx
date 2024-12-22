@@ -19,10 +19,11 @@ import { InvestorUpload } from "./InvestorUpload";
 interface Investor {
   id: string;
   name: string;
-  firm: string | null;
-  focus: string | null;
-  stage: string | null;
-  location: string | null;
+  investor_type: string | null;
+  headquarters_location: string | null;
+  aum_millions: number | null;
+  primary_contact_name: string | null;
+  primary_contact_email: string | null;
 }
 
 interface InvestorTableProps {
@@ -39,7 +40,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('investors')
-        .select('*')
+        .select('id, name, investor_type, headquarters_location, aum_millions, primary_contact_name, primary_contact_email')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -120,10 +121,11 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
                 />
               </TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>Firm</TableHead>
-              <TableHead>Investment Focus</TableHead>
-              <TableHead>Stage</TableHead>
+              <TableHead>Type</TableHead>
               <TableHead>Location</TableHead>
+              <TableHead>AUM (M)</TableHead>
+              <TableHead>Contact Name</TableHead>
+              <TableHead>Contact Email</TableHead>
               <TableHead className="w-[100px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -137,10 +139,11 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
                   />
                 </TableCell>
                 <TableCell className="font-medium">{investor.name}</TableCell>
-                <TableCell>{investor.firm}</TableCell>
-                <TableCell>{investor.focus}</TableCell>
-                <TableCell>{investor.stage}</TableCell>
-                <TableCell>{investor.location}</TableCell>
+                <TableCell>{investor.investor_type}</TableCell>
+                <TableCell>{investor.headquarters_location}</TableCell>
+                <TableCell>{investor.aum_millions ? `$${investor.aum_millions}M` : '-'}</TableCell>
+                <TableCell>{investor.primary_contact_name}</TableCell>
+                <TableCell>{investor.primary_contact_email}</TableCell>
                 <TableCell>
                   <Button size="sm" variant="ghost">
                     Add to List
