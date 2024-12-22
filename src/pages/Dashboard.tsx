@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartBar, Download, Users } from "lucide-react";
-import { mockLists, mockExports } from "@/data/mockInvestors";
+import { mockLists, mockExports, mockInvestors } from "@/data/mockInvestors";
 import {
   BarChart,
   Bar,
@@ -11,6 +11,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Treemap,
 } from "recharts";
 
 const Dashboard = () => {
@@ -23,6 +27,39 @@ const Dashboard = () => {
     { month: "May", exports: 22 },
     { month: "Jun", exports: 30 },
   ];
+
+  // Calculate investor type distribution
+  const investorTypeData = mockInvestors.reduce((acc: { name: string; value: number }[], investor) => {
+    const existingType = acc.find(item => item.name === investor.investor_type);
+    if (existingType) {
+      existingType.value++;
+    } else if (investor.investor_type) {
+      acc.push({ name: investor.investor_type, value: 1 });
+    }
+    return acc;
+  }, []);
+
+  // Calculate average asset allocations across all investors
+  const assetAllocationData = [
+    { name: 'Alternatives', value: 0 },
+    { name: 'Private Equity', value: 0 },
+    { name: 'Real Estate', value: 0 },
+    { name: 'Hedge Funds', value: 0 },
+    { name: 'Equities', value: 0 },
+    { name: 'Fixed Income', value: 0 },
+    { name: 'Cash', value: 0 },
+  ].map(allocation => {
+    const total = mockInvestors.reduce((sum, investor) => {
+      const key = `allocation_${allocation.name.toLowerCase().replace(' ', '_')}_pct` as keyof typeof investor;
+      return sum + (investor[key] as number || 0);
+    }, 0);
+    return {
+      ...allocation,
+      value: total / mockInvestors.length,
+    };
+  });
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658'];
 
   return (
     <SidebarProvider>
@@ -85,7 +122,7 @@ const Dashboard = () => {
               </Card>
             </div>
 
-            {/* Chart */}
+            {/* Export Activity Chart */}
             <Card>
               <CardHeader>
                 <CardTitle>Export Activity</CardTitle>
@@ -108,6 +145,98 @@ const Dashboard = () => {
                 </div>
               </CardContent>
             </Card>
+
+            {/* New Analytics Row */}
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Investor Types Distribution */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Investor Type Distribution</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={investorTypeData}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={false}
+                          label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                          outerRadius={100}
+                          fill="#8884d8"
+                          dataKey="value"
+                        >
+                          {investorTypeData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Asset Allocation Heatmap */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Average Asset Allocation</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <Treemap
+                        data={assetAllocationData}
+                        dataKey="value"
+                        ratio={4 / 3}
+                        stroke="#fff"
+                        content={({ root, depth, x, y, width, height, index, payload, colors, rank, name }) => {
+                          return (
+                            <g>
+                              <rect
+                                x={x}
+                                y={y}
+                                width={width}
+                                height={height}
+                                style={{
+                                  fill: COLORS[index % COLORS.length],
+                                  stroke: '#fff',
+                                  strokeWidth: 2 / (depth + 1e-10),
+                                  strokeOpacity: 1 / (depth + 1e-10),
+                                }}
+                              />
+                              {width > 30 && height > 30 && (
+                                <>
+                                  <text
+                                    x={x + width / 2}
+                                    y={y + height / 2 - 7}
+                                    textAnchor="middle"
+                                    fill="#fff"
+                                    fontSize={14}
+                                  >
+                                    {name}
+                                  </text>
+                                  <text
+                                    x={x + width / 2}
+                                    y={y + height / 2 + 7}
+                                    textAnchor="middle"
+                                    fill="#fff"
+                                    fontSize={14}
+                                  >
+                                    {`${payload.value.toFixed(1)}%`}
+                                  </text>
+                                </>
+                              )}
+                            </g>
+                          );
+                        }}
+                      />
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </main>
       </div>
