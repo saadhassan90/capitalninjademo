@@ -72,7 +72,7 @@ interface InvestorProfileModalProps {
 export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorProfileModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[800px] h-[90vh] p-0">
+      <DialogContent className="max-w-[800px] max-h-[90vh] p-0 overflow-hidden">
         <DialogHeader className="p-6 border-b">
           <DialogTitle className="text-2xl font-semibold">{investor.name}</DialogTitle>
           {investor.investor_type && (
@@ -80,8 +80,8 @@ export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorP
           )}
         </DialogHeader>
 
-        <ScrollArea className="h-[calc(90vh-100px)] px-6">
-          <div className="space-y-8 py-6">
+        <ScrollArea className="flex-1 h-[calc(90vh-120px)]">
+          <div className="space-y-6 p-6">
             <BasicInformation investor={investor} />
             <ContactInformation investor={investor} />
             <LocationInformation investor={investor} />
