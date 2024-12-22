@@ -1,5 +1,5 @@
 import { LayoutDashboard, Users, List, FileText, ChevronDown, User, Settings, Users2, CreditCard, LogOut } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -74,6 +74,7 @@ const userMenuItems = [
 
 export function AppSidebar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <Sidebar>
@@ -96,7 +97,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild isActive={location.pathname === item.path}>
                     <Link to={item.path}>
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
@@ -135,7 +136,10 @@ export function AppSidebar() {
               <DropdownMenuItem key={item.title} asChild>
                 <Link
                   to={item.path}
-                  className="flex items-center gap-2 px-2 py-2 cursor-pointer"
+                  className={cn(
+                    "flex items-center gap-2 px-2 py-2 cursor-pointer",
+                    location.pathname === item.path && "bg-accent"
+                  )}
                 >
                   <item.icon className="h-4 w-4" />
                   <span>{item.title}</span>
