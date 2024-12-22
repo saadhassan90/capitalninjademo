@@ -9,10 +9,9 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { NaturalLanguageSearch } from "@/components/NaturalLanguageSearch";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
 import { InvestorTableActions } from "./investors/InvestorTableActions";
 import { InvestorRowActions } from "./investors/InvestorRowActions";
+import { mockInvestors } from "@/data/mockInvestors";
 
 interface Investor {
   id: string;
@@ -50,19 +49,6 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
   const [localSearchQuery, setLocalSearchQuery] = useState("");
   const [filters, setFilters] = useState<Record<string, string>>({});
 
-  const { data: investors = [], isLoading } = useQuery({
-    queryKey: ['investors'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('investors')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      return data as Investor[];
-    },
-  });
-
   const handleSelectAll = () => {
     if (selectedInvestors.length === filteredInvestors.length) {
       setSelectedInvestors([]);
@@ -87,7 +73,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     setFilters(newFilters);
   };
 
-  const filteredInvestors = investors.filter((investor) => {
+  const filteredInvestors = mockInvestors.filter((investor) => {
     // Apply search filter
     const searchTerm = (searchQuery || localSearchQuery).toLowerCase();
     const matchesSearch = !searchTerm || Object.values(investor).some((value) =>
@@ -103,10 +89,6 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
 
     return matchesSearch && matchesFilters;
   });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="flex flex-col h-[calc(100vh-12rem)] space-y-6">
