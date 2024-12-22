@@ -60,7 +60,7 @@ export function SidebarUserMenu({
           )}
         >
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/lovable-uploads/db4adf48-8ae3-40a8-ada4-593eadc5e6ba.png" alt="John Doe" />
+            <AvatarImage src="/lovable-uploads/064bdc52-b9de-4898-867d-28c541ebe292.png" alt="John Doe" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
           {!isCollapsed && (
