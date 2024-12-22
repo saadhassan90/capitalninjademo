@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { InvestorTable } from "@/components/InvestorTable";
-import { ListsSidebar } from "@/components/ListsSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useState } from "react";
@@ -23,25 +22,7 @@ const Index = () => {
               <SidebarTrigger />
             </div>
 
-            <div className="flex gap-6">
-              <ListsSidebar />
-              
-              <div className="flex-1">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex-1">
-                    <Input
-                      placeholder="Search investors..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
-                  <Button>Export List</Button>
-                </div>
-                
-                <InvestorTable searchQuery={searchQuery} />
-              </div>
-            </div>
+            <InvestorTable searchQuery={searchQuery} />
           </div>
         </main>
       </div>

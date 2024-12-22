@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "@/pages/Index";
+import Lists from "@/pages/Lists";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Index />} />
-            <Route path="/lists" element={<Index />} />
+            <Route path="/lists" element={<Lists />} />
             <Route path="/exports" element={<Index />} />
             <Route path="/profile" element={<Index />} />
             <Route path="/settings" element={<Index />} />
