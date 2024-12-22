@@ -12,42 +12,40 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { NaturalLanguageSearch } from "@/components/NaturalLanguageSearch";
 import { Filter, Trash } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { InvestorUpload } from "./InvestorUpload";
 
-const investors = [
-  {
-    id: 1,
-    name: "John Smith",
-    firm: "Accel Partners",
-    focus: "SaaS, Fintech",
-    stage: "Series A-B",
-    location: "San Francisco, CA",
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    firm: "Sequoia Capital",
-    focus: "Consumer Tech, AI",
-    stage: "Seed-Series A",
-    location: "New York, NY",
-  },
-  {
-    id: 3,
-    name: "Michael Chen",
-    firm: "Andreessen Horowitz",
-    focus: "AI, Enterprise Software",
-    stage: "Series B-C",
-    location: "Menlo Park, CA",
-  },
-];
+interface Investor {
+  id: string;
+  name: string;
+  firm: string | null;
+  focus: string | null;
+  stage: string | null;
+  location: string | null;
+}
 
 interface InvestorTableProps {
   searchQuery?: string;
 }
 
 export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
-  const [selectedInvestors, setSelectedInvestors] = useState<number[]>([]);
+  const [selectedInvestors, setSelectedInvestors] = useState<string[]>([]);
   const [nlpKeywords, setNlpKeywords] = useState<string[]>([]);
   const [localSearchQuery, setLocalSearchQuery] = useState("");
+
+  const { data: investors = [], isLoading } = useQuery({
+    queryKey: ['investors'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('investors')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data as Investor[];
+    },
+  });
 
   const handleSelectAll = () => {
     if (selectedInvestors.length === filteredInvestors.length) {
@@ -57,7 +55,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     }
   };
 
-  const handleSelectInvestor = (investorId: number) => {
+  const handleSelectInvestor = (investorId: string) => {
     setSelectedInvestors(prev =>
       prev.includes(investorId)
         ? prev.filter(id => id !== investorId)
@@ -71,27 +69,32 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
 
   const filteredInvestors = investors.filter((investor) => {
     const matchesSearch = Object.values(investor).some((value) =>
-      value.toString().toLowerCase().includes((searchQuery || localSearchQuery).toLowerCase())
+      value?.toString().toLowerCase().includes((searchQuery || localSearchQuery).toLowerCase())
     );
 
     const matchesNlp = nlpKeywords.length === 0 || nlpKeywords.some(keyword =>
       Object.values(investor).some(value =>
-        value.toString().toLowerCase().includes(keyword.toLowerCase())
+        value?.toString().toLowerCase().includes(keyword.toLowerCase())
       )
     );
 
     return matchesSearch && matchesNlp;
   });
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="space-y-6">
       <NaturalLanguageSearch onSearchResults={handleNaturalLanguageSearch} />
       
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <Button variant="outline">
           <Filter className="h-4 w-4 mr-2" />
           Filters
         </Button>
+        <InvestorUpload />
       </div>
 
       {selectedInvestors.length > 0 && (
