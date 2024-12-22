@@ -61,7 +61,7 @@ export const NaturalLanguageSearch = ({ onSearchResults }: NaturalLanguageSearch
     <div className="relative w-full max-w-4xl mx-auto mb-8">
       <input
         type="text"
-        placeholder="Ask Lovable to find investors that..."
+        placeholder="Describe the investor you are looking for..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
