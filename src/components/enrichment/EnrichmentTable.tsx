@@ -50,11 +50,11 @@ const mockFiles: EnrichmentFile[] = [
 const getStatusBadgeVariant = (status: EnrichmentStatus) => {
   switch (status) {
     case "completed":
-      return "success";
+      return "default";
     case "in_progress":
-      return "warning";
-    case "pending":
       return "secondary";
+    case "pending":
+      return "outline";
   }
 };
 
