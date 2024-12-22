@@ -9,20 +9,13 @@ const Lists = () => {
         <AppSidebar />
         <main className="flex-1">
           <div className="container p-6">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col gap-6">
               <div>
                 <h1 className="text-4xl font-bold mb-2">My Lists</h1>
                 <p className="text-muted-foreground">Organize and manage your investor lists</p>
               </div>
-            </div>
 
-            <div className="flex gap-6">
               <ListsSidebar />
-              <div className="flex-1">
-                <div className="rounded-lg border border-border p-8 text-center text-muted-foreground">
-                  Select a list to view its investors
-                </div>
-              </div>
             </div>
           </div>
         </main>
