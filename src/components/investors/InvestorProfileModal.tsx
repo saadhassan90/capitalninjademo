@@ -3,20 +3,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { ListPlus } from "lucide-react";
 import { useState } from "react";
-import { BasicInformation } from "./profile/sections/BasicInformation";
-import { ContactInformation } from "./profile/sections/ContactInformation";
-import { LocationInformation } from "./profile/sections/LocationInformation";
-import { PrimaryContact } from "./profile/sections/PrimaryContact";
-import { CommitmentTypes } from "./profile/sections/CommitmentTypes";
-import { AssetAllocation } from "./profile/sections/AssetAllocation";
-import { InvestmentPreferences } from "./profile/sections/InvestmentPreferences";
-import { Affiliations } from "./profile/sections/Affiliations";
-import { TargetAllocations } from "./profile/sections/TargetAllocations";
-import { PolicyInformation } from "./profile/sections/PolicyInformation";
 import { AddToListDialog } from "./actions/AddToListDialog";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { InvestorProfileSections } from "./profile/InvestorProfileSections";
+import { InvestorProfileHeader } from "./profile/InvestorProfileHeader";
 
 interface InvestorProfileModalProps {
   investor: {
@@ -151,47 +143,14 @@ export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorP
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[800px] max-h-[90vh] p-0 overflow-hidden">
-        <DialogHeader className="p-6 border-b bg-card">
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <DialogTitle className="text-2xl font-semibold">{investor.name}</DialogTitle>
-              {investor.investor_type && (
-                <span className="text-muted-foreground text-sm">{investor.investor_type}</span>
-              )}
-            </div>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => setIsListDialogOpen(true)}
-            >
-              <ListPlus className="h-4 w-4 mr-2" />
-              Add to List
-            </Button>
-          </div>
-        </DialogHeader>
+        <InvestorProfileHeader 
+          investor={investor}
+          onAddToList={() => setIsListDialogOpen(true)}
+        />
 
         <ScrollArea className="flex-1 h-[calc(90vh-120px)]">
           <div className="space-y-8 p-6">
-            <div className="grid gap-8 md:grid-cols-2">
-              <BasicInformation investor={investor} />
-              <ContactInformation investor={investor} />
-            </div>
-            <div className="grid gap-8 md:grid-cols-2">
-              <LocationInformation investor={investor} />
-              <PrimaryContact investor={investor} />
-            </div>
-            <div className="grid gap-8 md:grid-cols-2">
-              <CommitmentTypes investor={investor} />
-              <AssetAllocation investor={investor} />
-            </div>
-            <div className="grid gap-8 md:grid-cols-2">
-              <InvestmentPreferences investor={investor} />
-              <Affiliations investor={investor} />
-            </div>
-            <div className="grid gap-8 md:grid-cols-2">
-              <TargetAllocations investor={investor} />
-              <PolicyInformation investor={investor} />
-            </div>
+            <InvestorProfileSections investor={investor} />
           </div>
         </ScrollArea>
 
