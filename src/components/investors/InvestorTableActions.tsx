@@ -17,11 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -40,6 +35,7 @@ export const InvestorTableActions = ({
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [lists, setLists] = useState<{ id: string; name: string }[]>([]);
   const [isListsOpen, setIsListsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { toast } = useToast();
 
   const filterOptions = [
@@ -78,8 +74,6 @@ export const InvestorTableActions = ({
   };
 
   const handleAddToList = async (listId: string) => {
-    // This is a placeholder - you'll need to implement the actual logic
-    // to add selected investors to the chosen list
     toast({
       title: "Success",
       description: `Added ${selectedCount} investors to list`,
@@ -91,14 +85,14 @@ export const InvestorTableActions = ({
     <>
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <DropdownMenu>
+          <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
                 <Filter className="h-4 w-4 mr-2" />
                 Filters {Object.keys(filters).length > 0 && `(${Object.keys(filters).length})`}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent className="w-80" align="start">
               <DropdownMenuLabel>Filter by</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
@@ -110,8 +104,21 @@ export const InvestorTableActions = ({
                       setActiveFilter(option.field);
                     }}
                   >
-                    {option.label}
-                    {filters[option.field] && " ✓"}
+                    <div className="flex flex-col w-full gap-2">
+                      <div className="flex items-center justify-between">
+                        <span>{option.label}</span>
+                        {filters[option.field] && " ✓"}
+                      </div>
+                      {activeFilter === option.field && (
+                        <div className="pt-2">
+                          <Input
+                            placeholder={`Filter by ${option.label.toLowerCase()}...`}
+                            value={filters[option.field] || ""}
+                            onChange={(e) => handleFilterChange(option.field, e.target.value)}
+                          />
+                        </div>
+                      )}
+                    </div>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
@@ -156,28 +163,6 @@ export const InvestorTableActions = ({
           )}
         </div>
       </div>
-
-      {activeFilter && (
-        <Popover open={true} onOpenChange={() => setActiveFilter(null)}>
-          <PopoverTrigger asChild>
-            <div />
-          </PopoverTrigger>
-          <PopoverContent className="w-80" onPointerDownOutside={() => setActiveFilter(null)}>
-            <div className="space-y-4">
-              <h4 className="font-medium leading-none">
-                Filter by {filterOptions.find(opt => opt.field === activeFilter)?.label}
-              </h4>
-              <div className="space-y-2">
-                <Input
-                  placeholder="Enter value..."
-                  value={filters[activeFilter] || ""}
-                  onChange={(e) => handleFilterChange(activeFilter, e.target.value)}
-                />
-              </div>
-            </div>
-          </PopoverContent>
-        </Popover>
-      )}
 
       {selectedCount > 0 && (
         <div className="flex items-center gap-2 mb-4">
