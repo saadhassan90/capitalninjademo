@@ -50,6 +50,18 @@ export const CreateListDialog = ({ onNewList }: CreateListDialogProps) => {
 
   const onSubmit = async (data: FormValues) => {
     try {
+      // First check if we have an authenticated session
+      const { data: session } = await supabase.auth.getSession();
+      
+      if (!session?.session) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to create lists",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const { data: newList, error } = await supabase
         .from("lists")
         .insert([{ 
