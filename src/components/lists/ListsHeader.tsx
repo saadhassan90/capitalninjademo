@@ -1,10 +1,13 @@
 import { CreateListDialog } from "@/components/lists/CreateListDialog";
 
-export const ListsHeader = () => {
+interface ListsHeaderProps {
+  onNewList?: (list: { id: string; name: string; description: string | null }) => void;
+}
+
+export const ListsHeader = ({ onNewList }: ListsHeaderProps) => {
   return (
     <div className="flex items-center justify-between mb-6">
-      <h2 className="text-lg font-semibold">My Lists</h2>
-      <CreateListDialog />
+      <CreateListDialog onNewList={onNewList} />
     </div>
   );
 };

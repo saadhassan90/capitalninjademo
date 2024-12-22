@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -33,7 +33,11 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export const CreateListDialog = () => {
+interface CreateListDialogProps {
+  onNewList?: (list: { id: string; name: string; description: string | null }) => void;
+}
+
+export const CreateListDialog = ({ onNewList }: CreateListDialogProps) => {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const form = useForm<FormValues>({
@@ -46,7 +50,6 @@ export const CreateListDialog = () => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      console.log("Creating list with data:", data);
       const { data: newList, error } = await supabase
         .from("lists")
         .insert([{ 
@@ -62,6 +65,11 @@ export const CreateListDialog = () => {
       }
 
       console.log("List created successfully:", newList);
+      
+      if (onNewList && newList) {
+        onNewList(newList);
+      }
+
       toast({
         title: "Success",
         description: "List created successfully",

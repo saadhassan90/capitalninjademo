@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ListCard } from "@/components/lists/ListCard";
 import { ListContextMenu } from "@/components/lists/ListContextMenu";
 import { ListsHeader } from "@/components/lists/ListsHeader";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { mockLists } from "@/data/mockInvestors";
 
@@ -17,6 +17,10 @@ export const ListsSidebar = () => {
   const [lists, setLists] = useState<List[]>(mockLists);
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  const handleNewList = (newList: List) => {
+    setLists(prev => [...prev, newList]);
+  };
 
   const handleDelete = async (id: string) => {
     try {
@@ -69,7 +73,7 @@ export const ListsSidebar = () => {
 
   return (
     <div className="w-full">
-      <ListsHeader />
+      <ListsHeader onNewList={handleNewList} />
       
       <ScrollArea className="h-[calc(100vh-200px)]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
