@@ -13,7 +13,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { Copy, MoreVertical, Trash2, FolderOpen } from "lucide-react";
+import { Copy, MoreVertical, Trash2, FolderOpen, Plus } from "lucide-react";
 
 // Mock data - in a real app this would come from your backend
 const lists = [
