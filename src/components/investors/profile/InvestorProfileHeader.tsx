@@ -13,7 +13,7 @@ interface InvestorProfileHeaderProps {
 export const InvestorProfileHeader = ({ investor, onAddToList }: InvestorProfileHeaderProps) => {
   return (
     <DialogHeader className="p-6 border-b bg-card">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pr-8">
         <div className="space-y-1">
           <DialogTitle className="text-2xl font-semibold">{investor.name}</DialogTitle>
           {investor.investor_type && (
