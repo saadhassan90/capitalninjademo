@@ -1,30 +1,85 @@
+import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ListCard } from "@/components/lists/ListCard";
 import { ListContextMenu } from "@/components/lists/ListContextMenu";
 import { ListsHeader } from "@/components/lists/ListsHeader";
+import { supabase } from "@/integrations/supabase/client";
 
-// Mock data - in a real app this would come from your backend
-const lists = [
-  { id: 1, name: "Seed Investors", count: 12 },
-  { id: 2, name: "Series A VCs", count: 8 },
-  { id: 3, name: "Fintech Focus", count: 15 },
-  { id: 4, name: "Healthcare VCs", count: 10 },
-  { id: 5, name: "Impact Investors", count: 7 },
-  { id: 6, name: "Growth Equity", count: 20 },
-];
+interface List {
+  id: string;
+  name: string;
+  description: string | null;
+}
 
 export const ListsSidebar = () => {
-  const handleDelete = (id: number) => {
-    console.log('Delete list:', id);
-    // Implementation would go here
+  const [lists, setLists] = useState<List[]>([]);
+
+  useEffect(() => {
+    const fetchLists = async () => {
+      const { data, error } = await supabase
+        .from("lists")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching lists:", error);
+        return;
+      }
+
+      setLists(data || []);
+    };
+
+    fetchLists();
+
+    // Subscribe to changes
+    const channel = supabase
+      .channel('lists_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'lists'
+        },
+        () => {
+          fetchLists();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      channel.unsubscribe();
+    };
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase
+      .from("lists")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error deleting list:", error);
+    }
   };
 
-  const handleDuplicate = (id: number) => {
-    console.log('Duplicate list:', id);
-    // Implementation would go here
+  const handleDuplicate = async (id: string) => {
+    const listToDuplicate = lists.find(list => list.id === id);
+    if (!listToDuplicate) return;
+
+    const { error } = await supabase
+      .from("lists")
+      .insert([{
+        name: `${listToDuplicate.name} (Copy)`,
+        description: listToDuplicate.description
+      }]);
+
+    if (error) {
+      console.error("Error duplicating list:", error);
+    }
   };
 
-  const handleOpen = (id: number) => {
+  const handleOpen = (id: string) => {
     console.log('Open list:', id);
     // Implementation would go here
   };
@@ -46,7 +101,7 @@ export const ListsSidebar = () => {
               <ListCard
                 id={list.id}
                 name={list.name}
-                count={list.count}
+                description={list.description}
               />
             </ListContextMenu>
           ))}

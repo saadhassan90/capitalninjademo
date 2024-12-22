@@ -8,19 +8,21 @@ import {
 import { MoreVertical } from "lucide-react";
 
 interface ListCardProps {
-  id: number;
+  id: string;
   name: string;
-  count: number;
+  description: string | null;
 }
 
-export const ListCard = ({ id, name, count }: ListCardProps) => {
+export const ListCard = ({ id, name, description }: ListCardProps) => {
   return (
     <Card className="cursor-pointer hover:bg-accent transition-colors group relative">
       <CardHeader className="p-4">
         <div className="flex items-start justify-between">
           <div>
             <CardTitle className="text-base">{name}</CardTitle>
-            <CardDescription>{count} investors</CardDescription>
+            {description && (
+              <CardDescription className="line-clamp-2">{description}</CardDescription>
+            )}
           </div>
           <Button 
             variant="ghost" 
