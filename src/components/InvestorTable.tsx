@@ -7,14 +7,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { NaturalLanguageSearch } from "@/components/NaturalLanguageSearch";
-import { Filter, Trash, View, Send } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { InvestorUpload } from "./InvestorUpload";
+import { InvestorTableActions } from "./investors/InvestorTableActions";
+import { InvestorRowActions } from "./investors/InvestorRowActions";
 
 interface Investor {
   id: string;
@@ -90,25 +88,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     <div className="space-y-6">
       <NaturalLanguageSearch onSearchResults={handleNaturalLanguageSearch} />
       
-      <div className="flex items-center justify-between gap-4">
-        <Button variant="outline">
-          <Filter className="h-4 w-4 mr-2" />
-          Filters
-        </Button>
-        <InvestorUpload />
-      </div>
-
-      {selectedInvestors.length > 0 && (
-        <div className="flex items-center gap-2 mb-4">
-          <Button variant="destructive" size="sm">
-            <Trash className="h-4 w-4 mr-2" />
-            Delete Selected
-          </Button>
-          <span className="text-sm text-muted-foreground">
-            {selectedInvestors.length} investor(s) selected
-          </span>
-        </div>
-      )}
+      <InvestorTableActions selectedCount={selectedInvestors.length} />
 
       <div className="rounded-md border">
         <Table>
@@ -145,16 +125,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
                 <TableCell>{investor.primary_contact_name}</TableCell>
                 <TableCell>{investor.primary_contact_email}</TableCell>
                 <TableCell>
-                  <div className="flex gap-2">
-                    <Button size="sm" variant="ghost">
-                      <View className="h-4 w-4 mr-2" />
-                      View
-                    </Button>
-                    <Button size="sm" variant="ghost">
-                      <Send className="h-4 w-4 mr-2" />
-                      Send to List
-                    </Button>
-                  </div>
+                  <InvestorRowActions />
                 </TableCell>
               </TableRow>
             ))}
