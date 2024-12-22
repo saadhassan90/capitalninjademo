@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "@/pages/Index";
 import Lists from "@/pages/Lists";
 import Exports from "@/pages/Exports";
+import Dashboard from "@/pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/dashboard" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/lists" element={<Lists />} />
             <Route path="/exports" element={<Exports />} />
             <Route path="/profile" element={<Index />} />
