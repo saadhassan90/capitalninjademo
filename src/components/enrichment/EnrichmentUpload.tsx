@@ -37,7 +37,7 @@ export const EnrichmentUpload = () => {
   return (
     <div
       {...getRootProps()}
-      className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
+      className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors bg-gray-50
         ${isDragActive ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}
     >
       <input {...getInputProps()} />
