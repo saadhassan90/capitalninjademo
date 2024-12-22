@@ -119,7 +119,7 @@ export const EnrichmentTable = () => {
               <TableHead>Status</TableHead>
               <TableHead>Uploaded</TableHead>
               <TableHead>Rows</TableHead>
-              <TableHead className="w-[100px]">Actions</TableHead>
+              <TableHead className="w-[150px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -141,12 +141,14 @@ export const EnrichmentTable = () => {
                 <TableCell>{file.rowCount}</TableCell>
                 <TableCell>
                   <Button
-                    variant="ghost"
-                    size="icon"
+                    variant="outline"
+                    size="sm"
                     onClick={() => handleDownload(file.id)}
                     disabled={file.status !== "completed"}
+                    className="flex items-center gap-2"
                   >
                     <Download className="h-4 w-4" />
+                    Download
                   </Button>
                 </TableCell>
               </TableRow>
