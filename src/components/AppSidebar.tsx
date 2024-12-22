@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  SidebarHeader,
 } from "@/components/ui/sidebar";
 import {
   DropdownMenu,
@@ -76,6 +77,18 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
+      <SidebarHeader className="border-b border-sidebar-border">
+        <div className="flex items-center gap-2 px-4 py-3">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary">
+            <span className="text-lg font-bold text-primary-foreground">CN</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-lg font-semibold">CapitalNinja</span>
+            <span className="text-xs text-muted-foreground">Investment Platform</span>
+          </div>
+        </div>
+      </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
