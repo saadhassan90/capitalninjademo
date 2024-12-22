@@ -231,6 +231,39 @@ export type Database = {
         }
         Relationships: []
       }
+      list_investors: {
+        Row: {
+          created_at: string
+          investor_id: string
+          list_id: string
+        }
+        Insert: {
+          created_at?: string
+          investor_id: string
+          list_id: string
+        }
+        Update: {
+          created_at?: string
+          investor_id?: string
+          list_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "list_investors_investor_id_fkey"
+            columns: ["investor_id"]
+            isOneToOne: false
+            referencedRelation: "investors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "list_investors_list_id_fkey"
+            columns: ["list_id"]
+            isOneToOne: false
+            referencedRelation: "lists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lists: {
         Row: {
           created_at: string
