@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { View, Send } from "lucide-react";
+import { Eye, ListPlus } from "lucide-react";
 import { InvestorProfileDrawer } from "./InvestorProfileDrawer";
 
 interface InvestorRowActionsProps {
@@ -37,14 +37,23 @@ export const InvestorRowActions = ({ investor }: InvestorRowActionsProps) => {
 
   return (
     <>
-      <div className="flex gap-2">
-        <Button size="sm" variant="ghost" onClick={() => setIsProfileOpen(true)}>
-          <View className="h-4 w-4 mr-2" />
+      <div className="flex items-center gap-2">
+        <Button 
+          size="sm" 
+          variant="outline"
+          className="font-medium"
+          onClick={() => setIsProfileOpen(true)}
+        >
+          <Eye className="h-4 w-4" />
           View
         </Button>
-        <Button size="sm" variant="ghost">
-          <Send className="h-4 w-4 mr-2" />
-          Send to List
+        <Button 
+          size="sm" 
+          variant="ghost"
+          className="text-muted-foreground"
+        >
+          <ListPlus className="h-4 w-4" />
+          Add to List
         </Button>
       </div>
 
