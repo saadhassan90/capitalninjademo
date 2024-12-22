@@ -20,11 +20,11 @@ export function ExportActivityChart() {
         <div className="h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(0, 0%, 90%)" />
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="exports" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="exports" fill="hsl(0, 0%, 40%)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
