@@ -151,9 +151,9 @@ export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorP
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[800px] max-h-[90vh] p-0 overflow-hidden">
-        <DialogHeader className="p-6 border-b">
+        <DialogHeader className="p-6 border-b bg-card">
           <div className="flex items-center justify-between">
-            <div>
+            <div className="space-y-1">
               <DialogTitle className="text-2xl font-semibold">{investor.name}</DialogTitle>
               {investor.investor_type && (
                 <span className="text-muted-foreground text-sm">{investor.investor_type}</span>
@@ -171,17 +171,27 @@ export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorP
         </DialogHeader>
 
         <ScrollArea className="flex-1 h-[calc(90vh-120px)]">
-          <div className="space-y-6 p-6">
-            <BasicInformation investor={investor} />
-            <ContactInformation investor={investor} />
-            <LocationInformation investor={investor} />
-            <PrimaryContact investor={investor} />
-            <CommitmentTypes investor={investor} />
-            <AssetAllocation investor={investor} />
-            <InvestmentPreferences investor={investor} />
-            <Affiliations investor={investor} />
-            <TargetAllocations investor={investor} />
-            <PolicyInformation investor={investor} />
+          <div className="space-y-8 p-6">
+            <div className="grid gap-8 md:grid-cols-2">
+              <BasicInformation investor={investor} />
+              <ContactInformation investor={investor} />
+            </div>
+            <div className="grid gap-8 md:grid-cols-2">
+              <LocationInformation investor={investor} />
+              <PrimaryContact investor={investor} />
+            </div>
+            <div className="grid gap-8 md:grid-cols-2">
+              <CommitmentTypes investor={investor} />
+              <AssetAllocation investor={investor} />
+            </div>
+            <div className="grid gap-8 md:grid-cols-2">
+              <InvestmentPreferences investor={investor} />
+              <Affiliations investor={investor} />
+            </div>
+            <div className="grid gap-8 md:grid-cols-2">
+              <TargetAllocations investor={investor} />
+              <PolicyInformation investor={investor} />
+            </div>
           </div>
         </ScrollArea>
 
