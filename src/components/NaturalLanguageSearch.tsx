@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
@@ -59,17 +58,23 @@ export const NaturalLanguageSearch = ({ onSearchResults }: NaturalLanguageSearch
   };
 
   return (
-    <div className="flex gap-2 w-full max-w-2xl mb-6">
-      <Input
-        placeholder="Describe the investor you're looking for..."
+    <div className="relative w-full max-w-4xl mx-auto mb-8">
+      <input
+        type="text"
+        placeholder="Ask Lovable to find investors that..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-        className="flex-1"
+        className="w-full h-14 px-6 py-4 text-lg bg-gray-700/10 dark:bg-gray-800/80 rounded-xl border-0 focus:ring-2 focus:ring-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 placeholder:text-muted-foreground/60"
       />
-      <Button onClick={handleSearch} disabled={isSearching}>
-        <Search className="h-4 w-4 mr-2" />
-        {isSearching ? "Searching..." : "Search"}
+      <Button 
+        onClick={handleSearch} 
+        disabled={isSearching}
+        className="absolute right-2 top-2 h-10"
+        variant="ghost"
+      >
+        <Search className="h-5 w-5" />
+        <span className="sr-only">Search</span>
       </Button>
     </div>
   );

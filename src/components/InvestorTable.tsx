@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { NaturalLanguageSearch } from "@/components/NaturalLanguageSearch";
-import { Filter, Plus, Trash } from "lucide-react";
+import { Filter, Trash } from "lucide-react";
 
 const investors = [
   {
@@ -87,15 +87,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     <div className="space-y-6">
       <NaturalLanguageSearch onSearchResults={handleNaturalLanguageSearch} />
       
-      <div className="flex items-center gap-4 mb-6">
-        <div className="flex-1">
-          <Input
-            placeholder="Search investors..."
-            value={localSearchQuery}
-            onChange={(e) => setLocalSearchQuery(e.target.value)}
-            className="w-full"
-          />
-        </div>
+      <div className="flex items-center gap-4">
         <Button variant="outline">
           <Filter className="h-4 w-4 mr-2" />
           Filters
@@ -148,8 +140,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
                 <TableCell>{investor.location}</TableCell>
                 <TableCell>
                   <Button size="sm" variant="ghost">
-                    <Plus className="h-4 w-4 mr-1" />
-                    Add
+                    Add to List
                   </Button>
                 </TableCell>
               </TableRow>
