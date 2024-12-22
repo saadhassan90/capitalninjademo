@@ -8,10 +8,10 @@ import { Copy, FolderOpen, Trash2 } from "lucide-react";
 
 interface ListContextMenuProps {
   children: React.ReactNode;
-  id: string;  // Changed from number to string
-  onOpen: (id: string) => void;  // Changed from number to string
-  onDuplicate: (id: string) => void;  // Changed from number to string
-  onDelete: (id: string) => void;  // Changed from number to string
+  id: string;
+  onOpen: (id: string) => void;
+  onDuplicate: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 export const ListContextMenu = ({ 
@@ -23,7 +23,9 @@ export const ListContextMenu = ({
 }: ListContextMenuProps) => {
   return (
     <ContextMenu>
-      <ContextMenuTrigger>{children}</ContextMenuTrigger>
+      <ContextMenuTrigger asChild>
+        {children}
+      </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem onClick={() => onOpen(id)}>
           <FolderOpen className="mr-2 h-4 w-4" />

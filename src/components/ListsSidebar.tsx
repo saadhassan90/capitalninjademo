@@ -4,6 +4,8 @@ import { ListCard } from "@/components/lists/ListCard";
 import { ListContextMenu } from "@/components/lists/ListContextMenu";
 import { ListsHeader } from "@/components/lists/ListsHeader";
 import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface List {
   id: string;
@@ -13,6 +15,8 @@ interface List {
 
 export const ListsSidebar = () => {
   const [lists, setLists] = useState<List[]>([]);
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLists = async () => {
@@ -53,35 +57,58 @@ export const ListsSidebar = () => {
   }, []);
 
   const handleDelete = async (id: string) => {
-    const { error } = await supabase
-      .from("lists")
-      .delete()
-      .eq("id", id);
+    try {
+      const { error } = await supabase
+        .from("lists")
+        .delete()
+        .eq("id", id);
 
-    if (error) {
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "List deleted successfully",
+      });
+    } catch (error) {
       console.error("Error deleting list:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete list",
+        variant: "destructive",
+      });
     }
   };
 
   const handleDuplicate = async (id: string) => {
-    const listToDuplicate = lists.find(list => list.id === id);
-    if (!listToDuplicate) return;
+    try {
+      const listToDuplicate = lists.find(list => list.id === id);
+      if (!listToDuplicate) return;
 
-    const { error } = await supabase
-      .from("lists")
-      .insert([{
-        name: `${listToDuplicate.name} (Copy)`,
-        description: listToDuplicate.description
-      }]);
+      const { error } = await supabase
+        .from("lists")
+        .insert([{
+          name: `${listToDuplicate.name} (Copy)`,
+          description: listToDuplicate.description
+        }]);
 
-    if (error) {
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "List duplicated successfully",
+      });
+    } catch (error) {
       console.error("Error duplicating list:", error);
+      toast({
+        title: "Error",
+        description: "Failed to duplicate list",
+        variant: "destructive",
+      });
     }
   };
 
   const handleOpen = (id: string) => {
-    console.log('Open list:', id);
-    // Implementation would go here
+    navigate(`/lists/${id}`);
   };
 
   return (
@@ -102,6 +129,7 @@ export const ListsSidebar = () => {
                 id={list.id}
                 name={list.name}
                 description={list.description}
+                onOpen={() => handleOpen(list.id)}
               />
             </ListContextMenu>
           ))}
