@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "@/pages/Index";
 import Lists from "@/pages/Lists";
+import Exports from "@/pages/Exports";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Index />} />
             <Route path="/lists" element={<Lists />} />
-            <Route path="/exports" element={<Index />} />
+            <Route path="/exports" element={<Exports />} />
             <Route path="/profile" element={<Index />} />
             <Route path="/settings" element={<Index />} />
             <Route path="/team" element={<Index />} />
