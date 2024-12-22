@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Eye, ListPlus } from "lucide-react";
-import { InvestorProfileDrawer } from "./InvestorProfileDrawer";
+import { InvestorProfileModal } from "./InvestorProfileModal";
 import { AddToListDialog } from "./actions/AddToListDialog";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -132,7 +132,7 @@ export const InvestorRowActions = ({ investor }: InvestorRowActionsProps) => {
         </Button>
       </div>
 
-      <InvestorProfileDrawer 
+      <InvestorProfileModal 
         investor={investor}
         open={isProfileOpen}
         onOpenChange={setIsProfileOpen}
