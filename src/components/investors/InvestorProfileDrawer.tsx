@@ -2,6 +2,14 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BasicInformation } from "./profile/sections/BasicInformation";
 import { ContactInformation } from "./profile/sections/ContactInformation";
+import { LocationInformation } from "./profile/sections/LocationInformation";
+import { PrimaryContact } from "./profile/sections/PrimaryContact";
+import { CommitmentTypes } from "./profile/sections/CommitmentTypes";
+import { AssetAllocation } from "./profile/sections/AssetAllocation";
+import { InvestmentPreferences } from "./profile/sections/InvestmentPreferences";
+import { Affiliations } from "./profile/sections/Affiliations";
+import { TargetAllocations } from "./profile/sections/TargetAllocations";
+import { PolicyInformation } from "./profile/sections/PolicyInformation";
 
 interface InvestorProfileDrawerProps {
   investor: {
@@ -68,7 +76,14 @@ export const InvestorProfileDrawer = ({ investor, open, onOpenChange }: Investor
           <div className="space-y-8">
             <BasicInformation investor={investor} />
             <ContactInformation investor={investor} />
-            {/* Add other sections here as they are implemented */}
+            <LocationInformation investor={investor} />
+            <PrimaryContact investor={investor} />
+            <CommitmentTypes investor={investor} />
+            <AssetAllocation investor={investor} />
+            <InvestmentPreferences investor={investor} />
+            <Affiliations investor={investor} />
+            <TargetAllocations investor={investor} />
+            <PolicyInformation investor={investor} />
           </div>
         </ScrollArea>
       </SheetContent>
