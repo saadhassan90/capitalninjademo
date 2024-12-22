@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { NaturalLanguageSearch } from "@/components/NaturalLanguageSearch";
-import { Filter, Trash } from "lucide-react";
+import { Filter, Trash, View, Send } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { InvestorUpload } from "./InvestorUpload";
@@ -126,7 +126,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
               <TableHead>AUM (M)</TableHead>
               <TableHead>Contact Name</TableHead>
               <TableHead>Contact Email</TableHead>
-              <TableHead className="w-[100px]">Actions</TableHead>
+              <TableHead className="w-[200px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -145,9 +145,16 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
                 <TableCell>{investor.primary_contact_name}</TableCell>
                 <TableCell>{investor.primary_contact_email}</TableCell>
                 <TableCell>
-                  <Button size="sm" variant="ghost">
-                    Add to List
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="ghost">
+                      <View className="h-4 w-4 mr-2" />
+                      View
+                    </Button>
+                    <Button size="sm" variant="ghost">
+                      <Send className="h-4 w-4 mr-2" />
+                      Send to List
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
