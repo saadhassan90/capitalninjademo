@@ -109,24 +109,24 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
   }
 
   return (
-    <div className="flex flex-col space-y-6">
-      <div className="w-full">
+    <div className="flex flex-col h-[calc(100vh-12rem)] space-y-6">
+      <div className="w-full flex-none">
         <NaturalLanguageSearch onSearchResults={handleSearch} />
       </div>
       
-      <div className="w-full">
+      <div className="w-full flex-none">
         <InvestorTableActions 
           selectedCount={selectedInvestors.length} 
           onFilterChange={handleFilterChange}
         />
       </div>
 
-      <div className="relative w-full">
-        <div className="overflow-auto">
+      <div className="relative flex-1 min-h-0 w-full border rounded-md">
+        <div className="absolute inset-0 overflow-auto">
           <Table>
-            <TableHeader>
+            <TableHeader className="sticky top-0 z-10">
               <TableRow>
-                <TableHead className="sticky left-0 bg-background w-[50px]">
+                <TableHead className="sticky left-0 z-20 bg-background w-[50px]">
                   <Checkbox
                     checked={selectedInvestors.length === filteredInvestors.length && filteredInvestors.length > 0}
                     onCheckedChange={handleSelectAll}
@@ -138,7 +138,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
                 <TableHead className="min-w-[100px]">AUM (M)</TableHead>
                 <TableHead className="min-w-[150px]">Contact Name</TableHead>
                 <TableHead className="min-w-[200px]">Contact Email</TableHead>
-                <TableHead className="sticky right-0 bg-background w-[200px]">Actions</TableHead>
+                <TableHead className="sticky right-0 z-20 bg-background w-[100px]">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
