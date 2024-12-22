@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, List, FileText } from "lucide-react";
+import { LayoutDashboard, Users, List } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   SidebarMenu,
@@ -21,11 +21,6 @@ const menuItems = [
     title: "My Lists",
     icon: List,
     path: "/lists",
-  },
-  {
-    title: "Exports",
-    icon: FileText,
-    path: "/exports",
   },
 ];
 
