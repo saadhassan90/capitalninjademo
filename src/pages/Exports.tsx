@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Download, FileText } from "lucide-react";
+import { Download } from "lucide-react";
 import { mockExports } from "@/data/mockInvestors";
 import { format } from "date-fns";
 
@@ -19,7 +19,7 @@ const Exports = () => {
         <main className="overflow-auto p-8">
           <div className="max-w-6xl mx-auto space-y-6">
             <h1 className="text-3xl font-bold flex items-center gap-2">
-              <FileText className="h-8 w-8" />
+              <Download className="h-8 w-8" />
               Exports
             </h1>
 
