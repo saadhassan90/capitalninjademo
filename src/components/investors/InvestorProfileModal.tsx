@@ -1,4 +1,4 @@
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BasicInformation } from "./profile/sections/BasicInformation";
 import { ContactInformation } from "./profile/sections/ContactInformation";
@@ -11,7 +11,7 @@ import { Affiliations } from "./profile/sections/Affiliations";
 import { TargetAllocations } from "./profile/sections/TargetAllocations";
 import { PolicyInformation } from "./profile/sections/PolicyInformation";
 
-interface InvestorProfileDrawerProps {
+interface InvestorProfileModalProps {
   investor: {
     id: string;
     name: string;
@@ -69,18 +69,18 @@ interface InvestorProfileDrawerProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export const InvestorProfileDrawer = ({ investor, open, onOpenChange }: InvestorProfileDrawerProps) => {
+export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorProfileModalProps) => {
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-[35vw] overflow-y-auto bg-background p-0">
-        <SheetHeader className="p-6 border-b">
-          <SheetTitle className="text-2xl font-semibold">{investor.name}</SheetTitle>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-[800px] h-[90vh] p-0">
+        <DialogHeader className="p-6 border-b">
+          <DialogTitle className="text-2xl font-semibold">{investor.name}</DialogTitle>
           {investor.investor_type && (
             <span className="text-muted-foreground text-sm">{investor.investor_type}</span>
           )}
-        </SheetHeader>
+        </DialogHeader>
 
-        <ScrollArea className="h-[calc(100vh-100px)] px-6">
+        <ScrollArea className="h-[calc(90vh-100px)] px-6">
           <div className="space-y-8 py-6">
             <BasicInformation investor={investor} />
             <ContactInformation investor={investor} />
@@ -94,7 +94,7 @@ export const InvestorProfileDrawer = ({ investor, open, onOpenChange }: Investor
             <PolicyInformation investor={investor} />
           </div>
         </ScrollArea>
-      </SheetContent>
-    </Sheet>
+      </DialogContent>
+    </Dialog>
   );
 };
