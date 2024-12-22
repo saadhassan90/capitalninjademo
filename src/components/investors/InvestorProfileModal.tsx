@@ -1,5 +1,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { ListPlus } from "lucide-react";
+import { useState } from "react";
 import { BasicInformation } from "./profile/sections/BasicInformation";
 import { ContactInformation } from "./profile/sections/ContactInformation";
 import { LocationInformation } from "./profile/sections/LocationInformation";
@@ -10,6 +13,10 @@ import { InvestmentPreferences } from "./profile/sections/InvestmentPreferences"
 import { Affiliations } from "./profile/sections/Affiliations";
 import { TargetAllocations } from "./profile/sections/TargetAllocations";
 import { PolicyInformation } from "./profile/sections/PolicyInformation";
+import { AddToListDialog } from "./actions/AddToListDialog";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface InvestorProfileModalProps {
   investor: {
@@ -70,14 +77,97 @@ interface InvestorProfileModalProps {
 }
 
 export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorProfileModalProps) => {
+  const [isListDialogOpen, setIsListDialogOpen] = useState(false);
+  const { toast } = useToast();
+
+  const { data: lists = [], refetch: refetchLists } = useQuery({
+    queryKey: ['lists'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('lists')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const handleCreateList = async (name: string, description: string) => {
+    if (!name.trim()) return;
+
+    try {
+      const { data: newList, error: createError } = await supabase
+        .from('lists')
+        .insert([{ name, description }])
+        .select()
+        .single();
+
+      if (createError) throw createError;
+
+      await handleAddToList(newList.id);
+      refetchLists();
+
+      toast({
+        title: "Success",
+        description: "New list created and investor added",
+      });
+    } catch (error) {
+      console.error('Error creating list:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create list",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAddToList = async (listId: string) => {
+    try {
+      const { error } = await supabase
+        .from('list_investors')
+        .upsert(
+          { list_id: listId, investor_id: investor.id },
+          { onConflict: 'list_id,investor_id' }
+        );
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Investor added to list",
+      });
+      setIsListDialogOpen(false);
+    } catch (error) {
+      console.error('Error adding to list:', error);
+      toast({
+        title: "Error",
+        description: "Failed to add investor to list",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[800px] max-h-[90vh] p-0 overflow-hidden">
         <DialogHeader className="p-6 border-b">
-          <DialogTitle className="text-2xl font-semibold">{investor.name}</DialogTitle>
-          {investor.investor_type && (
-            <span className="text-muted-foreground text-sm">{investor.investor_type}</span>
-          )}
+          <div className="flex items-center justify-between">
+            <div>
+              <DialogTitle className="text-2xl font-semibold">{investor.name}</DialogTitle>
+              {investor.investor_type && (
+                <span className="text-muted-foreground text-sm">{investor.investor_type}</span>
+              )}
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setIsListDialogOpen(true)}
+            >
+              <ListPlus className="h-4 w-4 mr-2" />
+              Add to List
+            </Button>
+          </div>
         </DialogHeader>
 
         <ScrollArea className="flex-1 h-[calc(90vh-120px)]">
@@ -94,6 +184,14 @@ export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorP
             <PolicyInformation investor={investor} />
           </div>
         </ScrollArea>
+
+        <AddToListDialog
+          open={isListDialogOpen}
+          onOpenChange={setIsListDialogOpen}
+          lists={lists}
+          onCreateList={handleCreateList}
+          onAddToList={handleAddToList}
+        />
       </DialogContent>
     </Dialog>
   );
