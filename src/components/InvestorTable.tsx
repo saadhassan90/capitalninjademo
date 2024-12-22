@@ -47,7 +47,6 @@ interface InvestorTableProps {
 
 export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
   const [selectedInvestors, setSelectedInvestors] = useState<string[]>([]);
-  const [nlpKeywords, setNlpKeywords] = useState<string[]>([]);
   const [localSearchQuery, setLocalSearchQuery] = useState("");
 
   const { data: investors = [], isLoading } = useQuery({
@@ -79,22 +78,17 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     );
   };
 
-  const handleNaturalLanguageSearch = (keywords: string[]) => {
-    setNlpKeywords(keywords);
+  const handleSearch = (query: string) => {
+    setLocalSearchQuery(query);
   };
 
   const filteredInvestors = investors.filter((investor) => {
-    const matchesSearch = Object.values(investor).some((value) =>
-      value?.toString().toLowerCase().includes((searchQuery || localSearchQuery).toLowerCase())
+    const searchTerm = (searchQuery || localSearchQuery).toLowerCase();
+    if (!searchTerm) return true;
+    
+    return Object.values(investor).some((value) =>
+      value?.toString().toLowerCase().includes(searchTerm)
     );
-
-    const matchesNlp = nlpKeywords.length === 0 || nlpKeywords.some(keyword =>
-      Object.values(investor).some(value =>
-        value?.toString().toLowerCase().includes(keyword.toLowerCase())
-      )
-    );
-
-    return matchesSearch && matchesNlp;
   });
 
   if (isLoading) {
@@ -103,7 +97,7 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
 
   return (
     <div className="space-y-6">
-      <NaturalLanguageSearch onSearchResults={handleNaturalLanguageSearch} />
+      <NaturalLanguageSearch onSearchResults={handleSearch} />
       
       <InvestorTableActions selectedCount={selectedInvestors.length} />
 
