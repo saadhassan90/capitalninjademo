@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -24,10 +24,13 @@ export function SidebarHeader({ isCollapsed, onToggleCollapse }: SidebarHeaderPr
       <Button
         variant="ghost"
         size="icon"
-        className="absolute right-2 top-3"
+        className={cn(
+          "absolute right-2 top-3 transition-transform duration-200",
+          isCollapsed && "rotate-180"
+        )}
         onClick={onToggleCollapse}
       >
-        {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        <ChevronLeft className="h-4 w-4" />
       </Button>
     </div>
   );
