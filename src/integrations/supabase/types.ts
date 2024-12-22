@@ -35,34 +35,199 @@ export type Database = {
       }
       investors: {
         Row: {
+          affiliated_funds_count: number | null
+          affiliated_investors_count: number | null
+          alias: string | null
+          allocation_alternatives_pct: number | null
+          allocation_cash_pct: number | null
+          allocation_equities_pct: number | null
+          allocation_fixed_income_pct: number | null
+          allocation_hedge_funds_pct: number | null
+          allocation_private_equity_pct: number | null
+          allocation_real_estate_pct: number | null
+          allocation_special_opps_pct: number | null
+          aum_millions: number | null
+          commitment_debt: boolean | null
+          commitment_energy: boolean | null
+          commitment_funds_of_funds: boolean | null
+          commitment_infrastructure: boolean | null
+          commitment_other: boolean | null
+          commitment_private_equity: boolean | null
+          commitment_real_estate: boolean | null
+          commitment_venture_capital: boolean | null
           created_at: string
-          firm: string | null
-          focus: string | null
+          description: string | null
+          email: string | null
+          fax_number: string | null
+          former_name: string | null
+          global_region: string | null
+          global_subregion: string | null
+          headquarters_address: string | null
+          headquarters_city: string | null
+          headquarters_country: string | null
+          headquarters_location: string | null
+          headquarters_postal_code: string | null
+          headquarters_state: string | null
           id: string
-          location: string | null
+          investment_policy_description: string | null
+          investor_type: string | null
+          max_commitment_size: number | null
+          max_direct_investment_size: number | null
+          min_commitment_size: number | null
+          min_direct_investment_size: number | null
           name: string
-          stage: string | null
+          open_to_first_time_funds: boolean | null
+          phone_number: string | null
+          preferred_commitment_size: number | null
+          preferred_direct_investment_size: number | null
+          preferred_fund_types: string[] | null
+          preferred_geography: string[] | null
+          primary_contact_email: string | null
+          primary_contact_name: string | null
+          primary_contact_phone: string | null
+          primary_contact_title: string | null
+          target_alternatives_max_pct: number | null
+          target_alternatives_min_pct: number | null
+          target_private_equity_max_pct: number | null
+          target_private_equity_min_pct: number | null
+          target_real_estate_max_pct: number | null
+          target_real_estate_min_pct: number | null
+          target_special_opps_max_pct: number | null
+          target_special_opps_min_pct: number | null
+          total_direct_investments: number | null
           updated_at: string
+          website: string | null
+          year_founded: number | null
         }
         Insert: {
+          affiliated_funds_count?: number | null
+          affiliated_investors_count?: number | null
+          alias?: string | null
+          allocation_alternatives_pct?: number | null
+          allocation_cash_pct?: number | null
+          allocation_equities_pct?: number | null
+          allocation_fixed_income_pct?: number | null
+          allocation_hedge_funds_pct?: number | null
+          allocation_private_equity_pct?: number | null
+          allocation_real_estate_pct?: number | null
+          allocation_special_opps_pct?: number | null
+          aum_millions?: number | null
+          commitment_debt?: boolean | null
+          commitment_energy?: boolean | null
+          commitment_funds_of_funds?: boolean | null
+          commitment_infrastructure?: boolean | null
+          commitment_other?: boolean | null
+          commitment_private_equity?: boolean | null
+          commitment_real_estate?: boolean | null
+          commitment_venture_capital?: boolean | null
           created_at?: string
-          firm?: string | null
-          focus?: string | null
+          description?: string | null
+          email?: string | null
+          fax_number?: string | null
+          former_name?: string | null
+          global_region?: string | null
+          global_subregion?: string | null
+          headquarters_address?: string | null
+          headquarters_city?: string | null
+          headquarters_country?: string | null
+          headquarters_location?: string | null
+          headquarters_postal_code?: string | null
+          headquarters_state?: string | null
           id?: string
-          location?: string | null
+          investment_policy_description?: string | null
+          investor_type?: string | null
+          max_commitment_size?: number | null
+          max_direct_investment_size?: number | null
+          min_commitment_size?: number | null
+          min_direct_investment_size?: number | null
           name: string
-          stage?: string | null
+          open_to_first_time_funds?: boolean | null
+          phone_number?: string | null
+          preferred_commitment_size?: number | null
+          preferred_direct_investment_size?: number | null
+          preferred_fund_types?: string[] | null
+          preferred_geography?: string[] | null
+          primary_contact_email?: string | null
+          primary_contact_name?: string | null
+          primary_contact_phone?: string | null
+          primary_contact_title?: string | null
+          target_alternatives_max_pct?: number | null
+          target_alternatives_min_pct?: number | null
+          target_private_equity_max_pct?: number | null
+          target_private_equity_min_pct?: number | null
+          target_real_estate_max_pct?: number | null
+          target_real_estate_min_pct?: number | null
+          target_special_opps_max_pct?: number | null
+          target_special_opps_min_pct?: number | null
+          total_direct_investments?: number | null
           updated_at?: string
+          website?: string | null
+          year_founded?: number | null
         }
         Update: {
+          affiliated_funds_count?: number | null
+          affiliated_investors_count?: number | null
+          alias?: string | null
+          allocation_alternatives_pct?: number | null
+          allocation_cash_pct?: number | null
+          allocation_equities_pct?: number | null
+          allocation_fixed_income_pct?: number | null
+          allocation_hedge_funds_pct?: number | null
+          allocation_private_equity_pct?: number | null
+          allocation_real_estate_pct?: number | null
+          allocation_special_opps_pct?: number | null
+          aum_millions?: number | null
+          commitment_debt?: boolean | null
+          commitment_energy?: boolean | null
+          commitment_funds_of_funds?: boolean | null
+          commitment_infrastructure?: boolean | null
+          commitment_other?: boolean | null
+          commitment_private_equity?: boolean | null
+          commitment_real_estate?: boolean | null
+          commitment_venture_capital?: boolean | null
           created_at?: string
-          firm?: string | null
-          focus?: string | null
+          description?: string | null
+          email?: string | null
+          fax_number?: string | null
+          former_name?: string | null
+          global_region?: string | null
+          global_subregion?: string | null
+          headquarters_address?: string | null
+          headquarters_city?: string | null
+          headquarters_country?: string | null
+          headquarters_location?: string | null
+          headquarters_postal_code?: string | null
+          headquarters_state?: string | null
           id?: string
-          location?: string | null
+          investment_policy_description?: string | null
+          investor_type?: string | null
+          max_commitment_size?: number | null
+          max_direct_investment_size?: number | null
+          min_commitment_size?: number | null
+          min_direct_investment_size?: number | null
           name?: string
-          stage?: string | null
+          open_to_first_time_funds?: boolean | null
+          phone_number?: string | null
+          preferred_commitment_size?: number | null
+          preferred_direct_investment_size?: number | null
+          preferred_fund_types?: string[] | null
+          preferred_geography?: string[] | null
+          primary_contact_email?: string | null
+          primary_contact_name?: string | null
+          primary_contact_phone?: string | null
+          primary_contact_title?: string | null
+          target_alternatives_max_pct?: number | null
+          target_alternatives_min_pct?: number | null
+          target_private_equity_max_pct?: number | null
+          target_private_equity_min_pct?: number | null
+          target_real_estate_max_pct?: number | null
+          target_real_estate_min_pct?: number | null
+          target_special_opps_max_pct?: number | null
+          target_special_opps_min_pct?: number | null
+          total_direct_investments?: number | null
           updated_at?: string
+          website?: string | null
+          year_founded?: number | null
         }
         Relationships: []
       }
