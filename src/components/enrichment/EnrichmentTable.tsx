@@ -133,9 +133,9 @@ export const EnrichmentTable = () => {
                 </TableCell>
                 <TableCell className="font-medium">{file.filename}</TableCell>
                 <TableCell>
-                  <Badge variant={getStatusBadgeVariant(file.status)}>
+                  <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-50 text-green-700 ring-green-600/20">
                     {file.status.replace('_', ' ')}
-                  </Badge>
+                  </span>
                 </TableCell>
                 <TableCell>{new Date(file.uploadedAt).toLocaleDateString()}</TableCell>
                 <TableCell>{file.rowCount}</TableCell>
