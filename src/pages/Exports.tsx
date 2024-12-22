@@ -38,39 +38,50 @@ export default function Exports() {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Exported Lists</h1>
+    <div className="container max-w-5xl mx-auto py-10">
+      <div className="mb-8">
+        <h1 className="text-3xl font-semibold text-foreground">Downloads</h1>
+        <p className="text-muted-foreground mt-2">Access and download your exported investor lists</p>
       </div>
 
-      <div className="border rounded-md">
+      <div className="bg-card rounded-lg border shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>List Name</TableHead>
-              <TableHead>File Name</TableHead>
-              <TableHead>Export Date</TableHead>
-              <TableHead>Row Count</TableHead>
-              <TableHead>File Size</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="w-[250px]">List</TableHead>
+              <TableHead className="hidden md:table-cell">Date</TableHead>
+              <TableHead className="hidden sm:table-cell text-right">Size</TableHead>
+              <TableHead className="hidden lg:table-cell text-right">Records</TableHead>
+              <TableHead className="w-[100px]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {mockExports.map((export_) => (
-              <TableRow key={export_.id}>
-                <TableCell className="font-medium">{export_.listName}</TableCell>
-                <TableCell>{export_.fileName}</TableCell>
-                <TableCell>{formatDistanceToNow(export_.exportDate, { addSuffix: true })}</TableCell>
-                <TableCell>{export_.rowCount.toLocaleString()} rows</TableCell>
-                <TableCell>{export_.fileSize}</TableCell>
-                <TableCell className="text-right">
+              <TableRow key={export_.id} className="hover:bg-muted/50">
+                <TableCell>
+                  <div>
+                    <p className="font-medium text-foreground">{export_.listName}</p>
+                    <p className="text-sm text-muted-foreground hidden sm:block">{export_.fileName}</p>
+                  </div>
+                </TableCell>
+                <TableCell className="hidden md:table-cell text-muted-foreground">
+                  {formatDistanceToNow(export_.exportDate, { addSuffix: true })}
+                </TableCell>
+                <TableCell className="hidden sm:table-cell text-right text-muted-foreground">
+                  {export_.fileSize}
+                </TableCell>
+                <TableCell className="hidden lg:table-cell text-right text-muted-foreground">
+                  {export_.rowCount.toLocaleString()}
+                </TableCell>
+                <TableCell>
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="sm"
                     onClick={() => handleDownload(export_.fileName)}
+                    className="w-full"
                   >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download
+                    <Download className="h-4 w-4" />
+                    <span className="sr-only">Download {export_.listName}</span>
                   </Button>
                 </TableCell>
               </TableRow>
