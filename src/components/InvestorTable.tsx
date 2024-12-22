@@ -48,6 +48,7 @@ interface InvestorTableProps {
 export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
   const [selectedInvestors, setSelectedInvestors] = useState<string[]>([]);
   const [localSearchQuery, setLocalSearchQuery] = useState("");
+  const [filters, setFilters] = useState<Record<string, string>>({});
 
   const { data: investors = [], isLoading } = useQuery({
     queryKey: ['investors'],
@@ -82,13 +83,25 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     setLocalSearchQuery(query);
   };
 
+  const handleFilterChange = (newFilters: Record<string, string>) => {
+    setFilters(newFilters);
+  };
+
   const filteredInvestors = investors.filter((investor) => {
+    // Apply search filter
     const searchTerm = (searchQuery || localSearchQuery).toLowerCase();
-    if (!searchTerm) return true;
-    
-    return Object.values(investor).some((value) =>
+    const matchesSearch = !searchTerm || Object.values(investor).some((value) =>
       value?.toString().toLowerCase().includes(searchTerm)
     );
+
+    // Apply column filters
+    const matchesFilters = Object.entries(filters).every(([field, value]) => {
+      const fieldValue = investor[field as keyof Investor];
+      return !value || 
+        fieldValue?.toString().toLowerCase().includes(value.toLowerCase());
+    });
+
+    return matchesSearch && matchesFilters;
   });
 
   if (isLoading) {
@@ -99,7 +112,10 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     <div className="space-y-6">
       <NaturalLanguageSearch onSearchResults={handleSearch} />
       
-      <InvestorTableActions selectedCount={selectedInvestors.length} />
+      <InvestorTableActions 
+        selectedCount={selectedInvestors.length} 
+        onFilterChange={handleFilterChange}
+      />
 
       <div className="rounded-md border">
         <Table>
