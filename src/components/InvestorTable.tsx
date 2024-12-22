@@ -110,14 +110,18 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
 
   return (
     <div className="space-y-6">
-      <NaturalLanguageSearch onSearchResults={handleSearch} />
+      <div className="w-full">
+        <NaturalLanguageSearch onSearchResults={handleSearch} />
+      </div>
       
-      <InvestorTableActions 
-        selectedCount={selectedInvestors.length} 
-        onFilterChange={handleFilterChange}
-      />
+      <div className="w-full">
+        <InvestorTableActions 
+          selectedCount={selectedInvestors.length} 
+          onFilterChange={handleFilterChange}
+        />
+      </div>
 
-      <div className="rounded-md border">
+      <div className="w-full overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -127,12 +131,12 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
                   onCheckedChange={handleSelectAll}
                 />
               </TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Location</TableHead>
-              <TableHead>AUM (M)</TableHead>
-              <TableHead>Contact Name</TableHead>
-              <TableHead>Contact Email</TableHead>
+              <TableHead className="min-w-[200px]">Name</TableHead>
+              <TableHead className="min-w-[150px]">Type</TableHead>
+              <TableHead className="min-w-[150px]">Location</TableHead>
+              <TableHead className="min-w-[100px]">AUM (M)</TableHead>
+              <TableHead className="min-w-[150px]">Contact Name</TableHead>
+              <TableHead className="min-w-[200px]">Contact Email</TableHead>
               <TableHead className="w-[200px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
