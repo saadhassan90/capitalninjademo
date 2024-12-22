@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const userMenuItems = [
   {
@@ -58,9 +59,10 @@ export function SidebarUserMenu({
             isCollapsed && "justify-center p-2"
           )}
         >
-          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground">
-            JD
-          </div>
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="/lovable-uploads/db4adf48-8ae3-40a8-ada4-593eadc5e6ba.png" alt="John Doe" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
           {!isCollapsed && (
             <>
               <div className="flex-1 text-left">
