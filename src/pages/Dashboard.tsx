@@ -4,6 +4,7 @@ import { StatsCards } from "@/components/dashboard/StatsCards";
 import { ExportActivityChart } from "@/components/dashboard/ExportActivityChart";
 import { InvestorTypeChart } from "@/components/dashboard/InvestorTypeChart";
 import { AssetAllocationChart } from "@/components/dashboard/AssetAllocationChart";
+import { LayoutDashboard } from "lucide-react";
 
 const Dashboard = () => {
   return (
@@ -13,10 +14,10 @@ const Dashboard = () => {
         <main className="overflow-auto p-8">
           <div className="max-w-7xl mx-auto space-y-8">
             <div>
-              <h1 className="text-3xl font-bold">Dashboard</h1>
-              <p className="text-muted-foreground mt-2">
-                Welcome back! Here's an overview of your investor database.
-              </p>
+              <h1 className="text-3xl font-bold flex items-center gap-2">
+                <LayoutDashboard className="h-8 w-8" />
+                Dashboard
+              </h1>
             </div>
 
             <StatsCards />

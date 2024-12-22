@@ -22,10 +22,7 @@ export function SidebarHeader({ isCollapsed, onToggleCollapse }: SidebarHeaderPr
               />
             </div>
             {!isCollapsed && (
-              <div className="flex flex-col">
-                <span className="text-lg font-semibold">CapitalNinja</span>
-                <span className="text-xs text-muted-foreground">Investor Database</span>
-              </div>
+              <span className="text-lg font-semibold">CapitalNinja</span>
             )}
           </div>
           <Badge 
