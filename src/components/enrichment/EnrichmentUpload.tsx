@@ -35,19 +35,21 @@ export const EnrichmentUpload = () => {
   });
 
   return (
-    <div
-      {...getRootProps()}
-      className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors bg-gray-50
-        ${isDragActive ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}
-    >
-      <input {...getInputProps()} />
-      <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-      <h3 className="text-lg font-semibold mb-1">Upload CSV File</h3>
-      <p className="text-muted-foreground">
-        {isDragActive
-          ? "Drop the file here"
-          : "Drag and drop your CSV file here, or click to select"}
-      </p>
+    <div className="w-1/2">
+      <div
+        {...getRootProps()}
+        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors bg-gray-50
+          ${isDragActive ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}
+      >
+        <input {...getInputProps()} />
+        <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+        <h3 className="text-lg font-semibold mb-1">Upload CSV File</h3>
+        <p className="text-muted-foreground">
+          {isDragActive
+            ? "Drop the file here"
+            : "Drag and drop your CSV file here, or click to select"}
+        </p>
+      </div>
     </div>
   );
 };
