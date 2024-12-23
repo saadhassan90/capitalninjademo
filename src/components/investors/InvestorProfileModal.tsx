@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { ListPlus } from "lucide-react";
+import { ListPlus, X } from "lucide-react";
 import { useState } from "react";
 import { AddToListDialog } from "./actions/AddToListDialog";
 import { useQuery } from "@tanstack/react-query";
@@ -142,14 +142,25 @@ export const InvestorProfileModal = ({ investor, open, onOpenChange }: InvestorP
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[800px] max-h-[90vh] p-0 overflow-hidden">
+      <DialogContent className="max-w-[800px] max-h-[90vh] p-0 overflow-hidden bg-white dark:bg-zinc-950">
+        <div className="absolute right-4 top-4 z-50">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onOpenChange(false)}
+            className="hover:bg-accent rounded-full h-8 w-8 p-0"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+
         <InvestorProfileHeader 
           investor={investor}
           onAddToList={() => setIsListDialogOpen(true)}
         />
 
         <ScrollArea className="flex-1 h-[calc(90vh-120px)]">
-          <div className="space-y-8 p-6">
+          <div className="space-y-6 p-6">
             <InvestorProfileSections investor={investor} />
           </div>
         </ScrollArea>

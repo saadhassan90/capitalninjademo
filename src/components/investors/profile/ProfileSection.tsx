@@ -9,8 +9,8 @@ interface ProfileSectionProps {
 export const ProfileSection = ({ title, children, className }: ProfileSectionProps) => {
   return (
     <div className={`space-y-4 ${className}`}>
-      <h3 className="text-lg font-semibold text-foreground border-b pb-2">{title}</h3>
-      <div className="space-y-4 rounded-lg bg-card/50 p-6 border shadow-sm">
+      <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+      <div className="space-y-4 rounded-xl bg-muted/30 p-6">
         {children}
       </div>
     </div>
