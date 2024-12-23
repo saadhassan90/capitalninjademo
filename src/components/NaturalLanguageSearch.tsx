@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 
 interface NaturalLanguageSearchProps {
@@ -11,13 +10,41 @@ export const NaturalLanguageSearch = ({ onSearchResults }: NaturalLanguageSearch
     onSearchResults(e.target.value);
   };
 
+  const searchContainerStyle = {
+    position: 'relative' as const
+  };
+
+  const searchIconStyle = {
+    position: 'absolute' as const,
+    left: '12px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    width: '16px',
+    height: '16px',
+    color: '#6b7280'
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '10px 12px 10px 36px',
+    fontSize: '14px',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    backgroundColor: 'white',
+    outline: 'none',
+    transition: 'border-color 0.2s',
+    ':focus': {
+      borderColor: '#3b82f6'
+    }
+  };
+
   return (
-    <div className="relative">
-      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-      <Input
+    <div style={searchContainerStyle}>
+      <Search style={searchIconStyle} />
+      <input
         placeholder="Search investors..."
         onChange={handleSearch}
-        className="pl-8"
+        style={inputStyle}
       />
     </div>
   );

@@ -6,14 +6,42 @@ import { Users } from "lucide-react";
 const Index = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        width: '100%',
+        backgroundColor: '#f5f5f5'
+      }}>
         <AppSidebar />
-        <div className="flex-1 flex flex-col min-h-screen">
-          <main className="flex-1 overflow-y-auto">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-7xl">
-              <div className="flex flex-col gap-4 mb-8">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold flex items-center gap-2">
-                  <Users className="h-8 w-8" />
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh'
+        }}>
+          <main style={{
+            flex: 1,
+            overflowY: 'auto'
+          }}>
+            <div style={{
+              maxWidth: '1280px',
+              margin: '0 auto',
+              padding: '24px 32px'
+            }}>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                marginBottom: '32px'
+              }}>
+                <h1 style={{
+                  fontSize: '32px',
+                  fontWeight: 'bold',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <Users style={{ width: '32px', height: '32px' }} />
                   Investors
                 </h1>
               </div>

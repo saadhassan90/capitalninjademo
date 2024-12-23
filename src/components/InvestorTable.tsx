@@ -90,55 +90,85 @@ export const InvestorTable = ({ searchQuery = "" }: InvestorTableProps) => {
     return matchesSearch && matchesFilters;
   });
 
+  const tableContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    height: 'calc(100vh - 12rem)',
+    gap: '24px'
+  };
+
+  const searchSectionStyle = {
+    width: '100%',
+    flexShrink: 0
+  };
+
+  const tableWrapperStyle = {
+    position: 'relative' as const,
+    flex: 1,
+    minHeight: 0,
+    width: '100%',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    backgroundColor: 'white'
+  };
+
+  const scrollContainerStyle = {
+    position: 'absolute' as const,
+    inset: 0,
+    overflowAuto: 'auto'
+  };
+
   return (
-    <div className="flex flex-col h-[calc(100vh-12rem)] space-y-6">
-      <div className="w-full flex-none">
+    <div style={tableContainerStyle}>
+      <div style={searchSectionStyle}>
         <NaturalLanguageSearch onSearchResults={handleSearch} />
       </div>
       
-      <div className="w-full flex-none">
+      <div style={searchSectionStyle}>
         <InvestorTableActions 
           selectedCount={selectedInvestors.length} 
           onFilterChange={handleFilterChange}
         />
       </div>
 
-      <div className="relative flex-1 min-h-0 w-full border rounded-md">
-        <div className="absolute inset-0 overflow-auto">
+      <div style={tableWrapperStyle}>
+        <div style={scrollContainerStyle}>
           <Table>
-            <TableHeader className="sticky top-0 z-10">
+            <TableHeader>
               <TableRow>
-                <TableHead className="sticky left-0 z-20 bg-background w-[50px]">
+                <TableHead style={{ width: '50px', position: 'sticky', left: 0, zIndex: 20, backgroundColor: 'white' }}>
                   <Checkbox
                     checked={selectedInvestors.length === filteredInvestors.length && filteredInvestors.length > 0}
                     onCheckedChange={handleSelectAll}
                   />
                 </TableHead>
-                <TableHead className="min-w-[200px]">Name</TableHead>
-                <TableHead className="min-w-[150px]">Type</TableHead>
-                <TableHead className="min-w-[150px]">Location</TableHead>
-                <TableHead className="min-w-[100px]">AUM (M)</TableHead>
-                <TableHead className="min-w-[150px]">Contact Name</TableHead>
-                <TableHead className="min-w-[200px]">Contact Email</TableHead>
-                <TableHead className="sticky right-0 z-20 bg-background w-[100px]">Actions</TableHead>
+                <TableHead style={{ minWidth: '200px' }}>Name</TableHead>
+                <TableHead style={{ minWidth: '150px' }}>Type</TableHead>
+                <TableHead style={{ minWidth: '150px' }}>Location</TableHead>
+                <TableHead style={{ minWidth: '100px' }}>AUM (M)</TableHead>
+                <TableHead style={{ minWidth: '150px' }}>Contact Name</TableHead>
+                <TableHead style={{ minWidth: '200px' }}>Contact Email</TableHead>
+                <TableHead style={{ width: '100px', position: 'sticky', right: 0, zIndex: 20, backgroundColor: 'white' }}>
+                  Actions
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredInvestors.map((investor) => (
                 <TableRow key={investor.id}>
-                  <TableCell className="sticky left-0 bg-background">
+                  <TableCell style={{ position: 'sticky', left: 0, backgroundColor: 'white' }}>
                     <Checkbox
                       checked={selectedInvestors.includes(investor.id)}
                       onCheckedChange={() => handleSelectInvestor(investor.id)}
                     />
                   </TableCell>
-                  <TableCell className="font-medium">{investor.name}</TableCell>
+                  <TableCell style={{ fontWeight: 500 }}>{investor.name}</TableCell>
                   <TableCell>{investor.investor_type}</TableCell>
                   <TableCell>{investor.headquarters_location}</TableCell>
                   <TableCell>{investor.aum_millions ? `$${investor.aum_millions}M` : '-'}</TableCell>
                   <TableCell>{investor.primary_contact_name}</TableCell>
                   <TableCell>{investor.primary_contact_email}</TableCell>
-                  <TableCell className="sticky right-0 bg-background">
+                  <TableCell style={{ position: 'sticky', right: 0, backgroundColor: 'white' }}>
                     <InvestorRowActions investor={investor} />
                   </TableCell>
                 </TableRow>
