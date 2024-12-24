@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, List, Download, Sparkles } from "lucide-react";
+import { LayoutDashboard, Users, List, Download, Sparkles, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   SidebarMenu,
@@ -8,9 +8,14 @@ import {
 
 const menuItems = [
   {
+    title: "Introduction",
+    icon: BookOpen,
+    path: "/introduction",
+  },
+  {
     title: "Dashboard",
     icon: LayoutDashboard,
-    path: "/dashboard",
+    path: "/",
   },
   {
     title: "Investors",

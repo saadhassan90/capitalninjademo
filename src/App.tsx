@@ -6,6 +6,7 @@ import Dashboard from "@/pages/Dashboard";
 import Lists from "@/pages/Lists";
 import Exports from "@/pages/Exports";
 import Enrichment from "@/pages/Enrichment";
+import Introduction from "@/pages/Introduction";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/introduction" element={<Introduction />} />
           <Route path="/investors" element={<Index />} />
           <Route path="/lists" element={<Lists />} />
           <Route path="/exports" element={<Exports />} />
