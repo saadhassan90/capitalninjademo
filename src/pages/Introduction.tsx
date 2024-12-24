@@ -4,6 +4,41 @@ import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+const dataSources = [
+  {
+    name: "LinkedIn",
+    logo: "https://cdn-icons-png.flaticon.com/512/174/174857.png"
+  },
+  {
+    name: "Preqin",
+    logo: "https://www.preqin.com/Portals/0/Images/Preqin_Master_Logo_Navy.png"
+  },
+  {
+    name: "PitchBook",
+    logo: "https://images.pitchbook.com/images/pitchbook-logo-dark.svg"
+  },
+  {
+    name: "Fintrx",
+    logo: "https://fintrx.com/hubfs/FINTRX%20Logo%20-%20Blue.png"
+  },
+  {
+    name: "Crunchbase",
+    logo: "https://global-uploads.webflow.com/5f2a93fe880654a977c51043/5f2a93fe880654e7d1c51048_crunchbase-logo-rgb.svg"
+  },
+  {
+    name: "SEC EDGAR",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/US-SEC-Logo.svg/1200px-US-SEC-Logo.svg.png"
+  },
+  {
+    name: "ZoomInfo",
+    logo: "https://www.zoominfo.com/wp-content/uploads/2019/11/zoominfo-logo-blue.svg"
+  },
+  {
+    name: "Apollo",
+    logo: "https://apollo.io/images/apollo-blue.svg"
+  }
+];
+
 const Introduction = () => {
   return (
     <SidebarProvider>
@@ -95,18 +130,22 @@ const Introduction = () => {
                   <CardContent>
                     <p className="mb-4">Our AI aggregates and harmonizes data from 34+ trusted industry channels, including:</p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {[
-                        "LinkedIn",
-                        "Preqin",
-                        "PitchBook",
-                        "Fintrx",
-                        "Crunchbase",
-                        "SEC EDGAR Filings",
-                        "ZoomInfo",
-                        "Apollo"
-                      ].map((source) => (
-                        <Card key={source} className="border border-gray-100 bg-gray-50/50">
-                          <CardContent className="p-4 text-center">{source}</CardContent>
+                      {dataSources.map((source) => (
+                        <Card key={source.name} className="border border-gray-100 bg-gray-50/50">
+                          <CardContent className="p-4 flex flex-col items-center justify-center space-y-2">
+                            <div className="w-24 h-12 relative flex items-center justify-center">
+                              <img 
+                                src={source.logo} 
+                                alt={`${source.name} logo`}
+                                className="max-w-full max-h-full object-contain"
+                                style={{
+                                  filter: 'grayscale(100%)',
+                                  opacity: '0.8'
+                                }}
+                              />
+                            </div>
+                            <p className="text-sm font-medium text-gray-600">{source.name}</p>
+                          </CardContent>
                         </Card>
                       ))}
                     </div>
