@@ -13,7 +13,7 @@ export const dataSources = [
   },
   {
     name: "Fintrx",
-    logo: "https://fintrx.com/hubfs/FINTRX%20Logo%20-%20Blue.png"
+    logo: "/lovable-uploads/509470be-efd6-4f6f-aaf5-369d34880d2b.png"
   },
   {
     name: "Crunchbase",
@@ -21,14 +21,14 @@ export const dataSources = [
   },
   {
     name: "SEC EDGAR",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/US-SEC-Logo.svg/1200px-US-SEC-Logo.svg.png"
+    logo: "/lovable-uploads/9e64f244-908d-4cf1-bd32-88efc7a4606a.png"
   },
   {
     name: "ZoomInfo",
-    logo: "https://www.zoominfo.com/wp-content/uploads/2019/11/zoominfo-logo-blue.svg"
+    logo: "/lovable-uploads/b400cf4d-2735-4ce1-ae49-c8d74d026c7b.png"
   },
   {
     name: "Apollo",
-    logo: "https://apollo.io/images/apollo-blue.svg"
+    logo: "/lovable-uploads/44a08dc0-3a20-4f85-a68d-be643a85542c.png"
   }
 ];

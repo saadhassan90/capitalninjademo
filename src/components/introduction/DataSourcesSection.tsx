@@ -18,10 +18,6 @@ export const DataSourcesSection = () => {
                     src={source.logo} 
                     alt={`${source.name} logo`}
                     className="max-w-full max-h-full object-contain"
-                    style={{
-                      filter: 'grayscale(100%)',
-                      opacity: '0.8'
-                    }}
                   />
                 </div>
                 <p className="text-sm font-medium text-gray-600">{source.name}</p>
