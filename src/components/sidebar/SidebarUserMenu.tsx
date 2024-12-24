@@ -1,40 +1,15 @@
-import { User, Settings, Users2, CreditCard, LogOut, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-
-const userMenuItems = [
-  {
-    title: "Profile",
-    icon: User,
-    path: "/profile",
-  },
-  {
-    title: "Settings",
-    icon: Settings,
-    path: "/settings",
-  },
-  {
-    title: "Team Management",
-    icon: Users2,
-    path: "/team",
-  },
-  {
-    title: "Billing",
-    icon: CreditCard,
-    path: "/billing",
-  },
-  {
-    title: "Log Out",
-    icon: LogOut,
-    path: "/logout",
-  },
-];
+import { LogOut, Settings, User } from "lucide-react";
 
 interface SidebarUserMenuProps {
   isCollapsed: boolean;
@@ -50,53 +25,38 @@ export function SidebarUserMenu({
   currentPath,
 }: SidebarUserMenuProps) {
   return (
-    <DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
-      <DropdownMenuTrigger asChild>
-        <button
-          className={cn(
-            "flex items-center w-full gap-2 p-4 hover:bg-sidebar-accent transition-colors",
-            isCollapsed && "justify-center p-2"
-          )}
-        >
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="/lovable-uploads/064bdc52-b9de-4898-867d-28c541ebe292.png" alt="John Doe" />
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-          {!isCollapsed && (
-            <>
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium">John Doe</p>
-                <p className="text-xs text-muted-foreground">john@example.com</p>
-              </div>
-              <ChevronDown
-                className={cn(
-                  "h-4 w-4 text-muted-foreground transition-transform duration-200",
-                  isUserMenuOpen && "rotate-180"
-                )}
-              />
-            </>
-          )}
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="start"
-        className="w-[--sidebar-width] rounded-none mt-2 p-2"
-        style={{ "--sidebar-width": isCollapsed ? "12rem" : "16rem" } as React.CSSProperties}
-      >
-        {userMenuItems.map((item) => (
-          <DropdownMenuItem key={item.title}>
-            <div
-              className={cn(
-                "flex items-center gap-2 px-2 py-2 w-full",
-                currentPath === item.path && "bg-accent"
-              )}
-            >
-              <item.icon className="h-4 w-4" />
-              <span>{item.title}</span>
-            </div>
+    <div className="flex flex-col gap-4 p-4">
+      {!isCollapsed && (
+        <Badge variant="outline" className="w-fit">
+          Beta
+        </Badge>
+      )}
+      <DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className={cn(
+              "w-full justify-start gap-2",
+              isCollapsed && "justify-center"
+            )}
+          >
+            <User className="h-4 w-4" />
+            {!isCollapsed && <span>John Doe</span>}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <Settings className="mr-2 h-4 w-4" />
+            Settings
           </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuItem>
+            <LogOut className="mr-2 h-4 w-4" />
+            Log out
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
