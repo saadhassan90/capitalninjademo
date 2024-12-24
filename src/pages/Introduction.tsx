@@ -3,41 +3,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const dataSources = [
-  {
-    name: "LinkedIn",
-    logo: "https://cdn-icons-png.flaticon.com/512/174/174857.png"
-  },
-  {
-    name: "Preqin",
-    logo: "https://www.preqin.com/Portals/0/Images/Preqin_Master_Logo_Navy.png"
-  },
-  {
-    name: "PitchBook",
-    logo: "https://images.pitchbook.com/images/pitchbook-logo-dark.svg"
-  },
-  {
-    name: "Fintrx",
-    logo: "https://fintrx.com/hubfs/FINTRX%20Logo%20-%20Blue.png"
-  },
-  {
-    name: "Crunchbase",
-    logo: "https://global-uploads.webflow.com/5f2a93fe880654a977c51043/5f2a93fe880654e7d1c51048_crunchbase-logo-rgb.svg"
-  },
-  {
-    name: "SEC EDGAR",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/US-SEC-Logo.svg/1200px-US-SEC-Logo.svg.png"
-  },
-  {
-    name: "ZoomInfo",
-    logo: "https://www.zoominfo.com/wp-content/uploads/2019/11/zoominfo-logo-blue.svg"
-  },
-  {
-    name: "Apollo",
-    logo: "https://apollo.io/images/apollo-blue.svg"
-  }
-];
+import { dataSources } from "@/data/dataSources";
 
 const Introduction = () => {
   return (
