@@ -1,4 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export const HowItWorksSection = () => {
   return (
@@ -9,20 +11,35 @@ export const HowItWorksSection = () => {
       <CardContent>
         <p className="mb-4">Navigate the platform with ease using our intuitive menu:</p>
         <div className="space-y-3">
-          <div>
-            <strong>Dashboard:</strong> Your command center for tracking activity and metrics.
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" size="sm" asChild>
+              <Link to="/dashboard">Dashboard</Link>
+            </Button>
+            <span>Your command center for tracking activity and metrics.</span>
           </div>
-          <div>
-            <strong>Investor:</strong> Search and discover detailed investor profiles in seconds.
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" size="sm" asChild>
+              <Link to="/investors">Investor</Link>
+            </Button>
+            <span>Search and discover detailed investor profiles in seconds.</span>
           </div>
-          <div>
-            <strong>My Lists:</strong> Organize prospects into custom lists by asset class, region, or other criteria.
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" size="sm" asChild>
+              <Link to="/lists">My Lists</Link>
+            </Button>
+            <span>Organize prospects into custom lists by asset class, region, or other criteria.</span>
           </div>
-          <div>
-            <strong>Enrichment:</strong> Upload your existing data and let our AI enhance it with precision.
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" size="sm" asChild>
+              <Link to="/enrichment">Enrichment</Link>
+            </Button>
+            <span>Upload your existing data and let our AI enhance it with precision.</span>
           </div>
-          <div>
-            <strong>Exports:</strong> Keep a detailed log of your export history for tracking and optimization.
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" size="sm" asChild>
+              <Link to="/exports">Exports</Link>
+            </Button>
+            <span>Keep a detailed log of your export history for tracking and optimization.</span>
           </div>
         </div>
       </CardContent>
