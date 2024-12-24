@@ -93,17 +93,22 @@ const Introduction = () => {
                     <CardTitle>Data Sources We Use</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="mb-4">Our AI aggregates and harmonizes data from trusted industry channels, including:</p>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <div>LinkedIn</div>
-                      <div>Preqin</div>
-                      <div>PitchBook</div>
-                      <div>Fintrx</div>
-                      <div>Crunchbase</div>
-                      <div>SEC EDGAR Filings</div>
-                      <div>ZoomInfo</div>
-                      <div>Apollo</div>
-                      <div>30+ additional leading data sources</div>
+                    <p className="mb-4">Our AI aggregates and harmonizes data from 34+ trusted industry channels, including:</p>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {[
+                        "LinkedIn",
+                        "Preqin",
+                        "PitchBook",
+                        "Fintrx",
+                        "Crunchbase",
+                        "SEC EDGAR Filings",
+                        "ZoomInfo",
+                        "Apollo"
+                      ].map((source) => (
+                        <Card key={source} className="border border-gray-100 bg-gray-50/50">
+                          <CardContent className="p-4 text-center">{source}</CardContent>
+                        </Card>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>
