@@ -35,7 +35,7 @@ export const EnrichmentUpload = () => {
   });
 
   return (
-    <div className="w-1/2">
+    <div className="w-full">
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors bg-gray-50
