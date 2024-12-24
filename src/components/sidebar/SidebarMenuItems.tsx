@@ -10,12 +10,12 @@ const menuItems = [
   {
     title: "Introduction",
     icon: BookOpen,
-    path: "/introduction",
+    path: "/",
   },
   {
     title: "Dashboard",
     icon: LayoutDashboard,
-    path: "/",
+    path: "/dashboard",
   },
   {
     title: "Investors",
