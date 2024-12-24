@@ -13,7 +13,7 @@ export const HowItWorksSection = () => {
         <p className="mb-4">Navigate the platform with ease using our intuitive menu:</p>
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link to="/dashboard">
                 <LayoutDashboard className="h-4 w-4" />
                 Dashboard
@@ -22,7 +22,7 @@ export const HowItWorksSection = () => {
             <span>Your command center for tracking activity and metrics.</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link to="/investors">
                 <Users className="h-4 w-4" />
                 Investor
@@ -31,7 +31,7 @@ export const HowItWorksSection = () => {
             <span>Search and discover detailed investor profiles in seconds.</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link to="/lists">
                 <List className="h-4 w-4" />
                 My Lists
@@ -40,7 +40,7 @@ export const HowItWorksSection = () => {
             <span>Organize prospects into custom lists by asset class, region, or other criteria.</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link to="/enrichment">
                 <Sparkles className="h-4 w-4" />
                 Enrichment
@@ -49,7 +49,7 @@ export const HowItWorksSection = () => {
             <span>Upload your existing data and let our AI enhance it with precision.</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link to="/exports">
                 <Download className="h-4 w-4" />
                 Exports
