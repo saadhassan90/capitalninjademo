@@ -59,7 +59,7 @@ const Introduction = () => {
               </div>
 
               <div className="space-y-6">
-                <Card>
+                <Card className="border border-gray-200 bg-transparent shadow-none">
                   <CardHeader>
                     <CardTitle className="text-4xl">Welcome to Capital Ninja</CardTitle>
                   </CardHeader>
@@ -70,7 +70,7 @@ const Introduction = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="border border-gray-200 bg-transparent shadow-none">
                   <CardHeader>
                     <CardTitle>Why Capital Ninja?</CardTitle>
                   </CardHeader>
@@ -88,7 +88,7 @@ const Introduction = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="border border-gray-200 bg-transparent shadow-none">
                   <CardHeader>
                     <CardTitle>Data Sources We Use</CardTitle>
                   </CardHeader>
@@ -108,7 +108,7 @@ const Introduction = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="border border-gray-200 bg-transparent shadow-none">
                   <CardHeader>
                     <CardTitle>How Capital Ninja Works</CardTitle>
                   </CardHeader>
@@ -134,7 +134,7 @@ const Introduction = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-primary/5">
+                <Card className="border border-gray-200 bg-transparent shadow-none">
                   <CardHeader>
                     <CardTitle>Beta Program</CardTitle>
                   </CardHeader>
