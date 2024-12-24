@@ -1,6 +1,7 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Introduction = () => {
   return (
@@ -29,7 +30,9 @@ const Introduction = () => {
             }}>
               <div style={{
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
                 gap: '16px',
                 marginBottom: '32px'
               }}>
@@ -43,6 +46,15 @@ const Introduction = () => {
                   <BookOpen style={{ width: '32px', height: '32px' }} />
                   Introduction
                 </h1>
+                <Button asChild>
+                  <a 
+                    href="https://www.capitalninja.ai" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Join Waitlist
+                  </a>
+                </Button>
               </div>
 
               <div className="prose prose-gray max-w-none">
