@@ -1,7 +1,6 @@
-import { ChevronLeft, BadgeInfo } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 interface SidebarHeaderProps {
   isCollapsed: boolean;
@@ -25,17 +24,6 @@ export function SidebarHeader({ isCollapsed, onToggleCollapse }: SidebarHeaderPr
               <span className="text-lg font-semibold">CapitalNinja</span>
             )}
           </div>
-          <Badge 
-            variant="default"
-            className={cn(
-              "flex items-center gap-1 text-xs font-medium bg-[#8B5CF6] hover:bg-[#7C3AED]",
-              isCollapsed ? "w-fit px-1" : "w-fit px-2 py-1",
-              "self-center"
-            )}
-          >
-            <BadgeInfo className="h-3 w-3" />
-            <span className={cn(isCollapsed && "hidden")}>Demo Version</span>
-          </Badge>
         </div>
         <Button
           variant="ghost"
